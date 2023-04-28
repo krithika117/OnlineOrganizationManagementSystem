@@ -1,6 +1,7 @@
+using OnlineOrganizationManagementSystem.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using OnlineOrganizationManagementSystem.Data;
+
 
 namespace OnlineOrganizationManagementSystem
 {
@@ -17,8 +18,9 @@ namespace OnlineOrganizationManagementSystem
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                            .AddRoles<IdentityRole>()
+                            .AddEntityFrameworkStores<ApplicationDbContext>();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -47,12 +49,12 @@ namespace OnlineOrganizationManagementSystem
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
             // Seeding Roles
             using (var scope = app.Services.CreateScope())
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-                var roles = new[] { "Admin", "User", "Manager" };
+                var roles = new[] { "Admin", "Manager", "Member" };
                 foreach (var role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))

@@ -9,11 +9,11 @@ using OnlineOrganizationManagementSystem.Data;
 
 #nullable disable
 
-namespace OnlineOrganizationManagementSystem.Data.Migrations
+namespace OnlineOrganizationManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230428044254_teaammodels")]
-    partial class teaammodels
+    [Migration("20230428164240_CreateTeamsTable")]
+    partial class CreateTeamsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -234,7 +234,7 @@ namespace OnlineOrganizationManagementSystem.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("BackendDeveloper")
+                    b.Property<string>("BackendDeveloperId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -242,7 +242,7 @@ namespace OnlineOrganizationManagementSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FrontendDeveloper")
+                    b.Property<string>("FrontendDeveloperId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -250,19 +250,19 @@ namespace OnlineOrganizationManagementSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReportsTo")
+                    b.Property<string>("ReportsToId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeamLead")
+                    b.Property<string>("TeamLeadId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tester")
+                    b.Property<string>("TesterId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UIUXDeveloper")
+                    b.Property<string>("UIUXDeveloperId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
