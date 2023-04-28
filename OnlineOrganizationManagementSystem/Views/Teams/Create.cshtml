@@ -1,0 +1,129 @@
+﻿@model Teams
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Teams</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UIUXDeveloper" class="control-label"></label>
+                <select asp-for="UIUXDeveloper" class="form-control dropdown" asp-items="@((IEnumerable<SelectListItem>)ViewData["Employees"])">
+                    <option value="">Select...</option>
+                </select>
+                <span asp-validation-for="UIUXDeveloper" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="FrontendDeveloper" class="control-label"></label>
+                <select asp-for="FrontendDeveloper" class="form-control dropdown" asp-items="@((IEnumerable<SelectListItem>)ViewData["Employees"])">
+                    <option value="">Select...</option>
+                </select>                
+                <span asp-validation-for="FrontendDeveloper" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BackendDeveloper" class="control-label"></label>
+                <select asp-for="BackendDeveloper" class="form-control dropdown" asp-items="@((IEnumerable<SelectListItem>)ViewData["Employees"])">
+                    <option value="">Select...</option>
+                </select>
+                <span asp-validation-for="BackendDeveloper" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tester" class="control-label"></label>
+                <select asp-for="Tester" class="form-control dropdown" asp-items="@((IEnumerable<SelectListItem>)ViewData["Employees"])">
+                    <option value="">Select...</option>
+                </select>
+                <span asp-validation-for="Tester" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamLead" class="control-label"></label>
+                <select asp-for="TeamLead" class="form-control dropdown" asp-items="@((IEnumerable<SelectListItem>)ViewData["Employees"])">
+                    <option value="">Select...</option>
+                </select>
+                <span asp-validation-for="TeamLead" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportsTo" class="control-label"></label>
+                <select asp-for="ReportsTo" class="form-control" asp-items="@((IEnumerable<SelectListItem>)ViewData["Employees"])">
+                    <option value="">Select...</option>
+                </select>                
+                <span asp-validation-for="ReportsTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+
+    <script>
+      $(document).ready(function () {
+    var selectedEmployees = [];
+
+    $(".dropdown").change(function () {
+        var selectedEmployee = $(this).val();
+        var otherDropdowns = $(".dropdown").not(this);
+
+        // Disable selected employee in all other dropdowns
+        otherDropdowns.find("option[value='" + selectedEmployee + "']").prop("disabled", true);
+
+        // Enable all previously selected employees in this dropdown
+        $(this).find("option").prop("disabled", false);
+        $(this).find("option").each(function () {
+            if ($.inArray($(this).val(), selectedEmployees) !== -1) {
+                $(this).prop("disabled", true);
+            }
+        });
+
+        // Update selected employees list
+        if ($.inArray(selectedEmployee, selectedEmployees) === -1) {
+            selectedEmployees.push(selectedEmployee);
+        }
+    }).focus(function () {
+        // Store the current value on focus
+        previousValue = $(this).val();
+    }).change(function () {
+        // Enable the previously selected option in all other dropdowns
+        var previousValue = $(this).data("prev");
+        var otherDropdowns = $(".dropdown").not(this);
+        otherDropdowns.find("option[value='" + previousValue + "']").prop("disabled", false);
+
+        // Remove the previously selected employee from the array
+        var index = selectedEmployees.indexOf(previousValue);
+        if (index !== -1) {
+            selectedEmployees.splice(index, 1);
+        }
+
+        // Store the current value on focus
+        $(this).data("prev", $(this).val());
+    });
+});
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
