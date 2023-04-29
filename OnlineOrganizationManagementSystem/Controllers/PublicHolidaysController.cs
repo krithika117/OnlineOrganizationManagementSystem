@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineOrganizationManagementSystem.Data;
 using OnlineOrganizationManagementSystem.Models;
@@ -20,14 +16,16 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: PublicHolidays
+        [Authorize(Roles = "Admin, User, Manager")]
         public async Task<IActionResult> Index()
         {
-              return _context.PublicHoliday != null ? 
-                          View(await _context.PublicHoliday.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.PublicHoliday'  is null.");
+            return _context.PublicHoliday != null ?
+                        View(await _context.PublicHoliday.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.PublicHoliday'  is null.");
         }
 
         // GET: PublicHolidays/Details/5
+        [Authorize(Roles = "Admin, User, Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.PublicHoliday == null)
@@ -46,6 +44,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: PublicHolidays/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +53,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: PublicHolidays/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Date")] PublicHoliday publicHoliday)
@@ -68,6 +68,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: PublicHolidays/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.PublicHoliday == null)
@@ -86,6 +87,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: PublicHolidays/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Date")] PublicHoliday publicHoliday)
@@ -119,6 +121,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: PublicHolidays/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.PublicHoliday == null)
@@ -137,6 +140,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // POST: PublicHolidays/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -150,14 +154,14 @@ namespace OnlineOrganizationManagementSystem.Controllers
             {
                 _context.PublicHoliday.Remove(publicHoliday);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PublicHolidayExists(int id)
         {
-          return (_context.PublicHoliday?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.PublicHoliday?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
