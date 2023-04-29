@@ -3,10 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<div class="container">
+    <a asp-action="Create" class="btn btn-secondary mb-3">+ Create Holiday</a>
+    <div id='calendar'></div>
+</div>
 
 @section scripts {
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
@@ -45,8 +48,10 @@
                     // add the modal content
                     modal.innerHTML = '<div class="modal-content">' +
                         '<h3>Actions for ' + info.event.title + '</h3>' +
-                        '<a href="' + info.event.extendedProps.editUrl + '">Edit</a>' +
-                        '<a href="' + info.event.extendedProps.deleteUrl + '">Delete</a>' +
+                        '<div class="d-flex justify-content-center m-2">' +
+                        '<a href="' + info.event.extendedProps.editUrl + '" class="btn btn-primary mx-2">Edit</a>' +
+                        '<a href="' + info.event.extendedProps.deleteUrl + '" class="btn btn-danger mx-2">Delete</a>' +
+                        '</div>' +
                         '</div>';
 
                     // add the modal to the page
@@ -83,32 +88,13 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 30%;
+            text-align: center;
         }
 
-        .modal a,
-        .modal input[type="submit"] {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            text-decoration: none;
-            cursor: pointer;
-        }
+      
 
-            .modal a:hover,
-            .modal input[type="submit"]:hover {
-                background-color: #0069d9;
-            }
-
-            .modal a:not(:last-child) {
-                margin-right: 10px;
-            }
+     
     </style>
 }
 
-<div class="container">
-    <a asp-action="Create">Create New</a>
-    <div id='calendar'></div>
-</div>
