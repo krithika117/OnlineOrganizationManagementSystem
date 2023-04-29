@@ -12,5 +12,6 @@ namespace OnlineOrganizationManagementSystem.Data
         }
         public DbSet<Teams> Teams { get; set; }
         public DbSet<Notes> Notes { get; set; }
+        public DbSet<OnlineOrganizationManagementSystem.Models.PublicHoliday>? PublicHoliday { get; set; }
     }
 }

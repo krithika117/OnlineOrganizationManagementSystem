@@ -1,0 +1,114 @@
+﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.PublicHoliday>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                selectable: true,
+                editable: false,
+                events: [
+        @foreach (var item in Model)
+        {
+            var editUrl = Url.Action("Edit", "PublicHolidays", new { id = item.Id });
+            var deleteUrl = Url.Action("Delete", "PublicHolidays", new { id = item.Id });
+            @Html.Raw("{")
+            @Html.Raw($"title: '{item.Title}',")
+            @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")
+            @Html.Raw($"url: '{editUrl}',")
+            @Html.Raw($"editUrl: '{editUrl}',")
+            @Html.Raw($"deleteUrl: '{deleteUrl}',")
+            @Html.Raw("},")
+        }
+                        ],
+                eventClick: function (info) {
+                    // prevent navigating to the event URL
+                    info.jsEvent.preventDefault();
+
+                    // create the modal
+                    var modal = document.createElement('div');
+                    modal.classList.add('modal');
+
+                    // add the modal content
+                    modal.innerHTML = '<div class="modal-content">' +
+                        '<h3>Actions for ' + info.event.title + '</h3>' +
+                        '<a href="' + info.event.extendedProps.editUrl + '">Edit</a>' +
+                        '<a href="' + info.event.extendedProps.deleteUrl + '">Delete</a>' +
+                        '</div>';
+
+                    // add the modal to the page
+                    document.body.appendChild(modal);
+
+                    // close the modal when clicking outside of it
+                    window.addEventListener('click', function (event) {
+                        if (event.target == modal) {
+                            modal.remove();
+                        }
+                    });
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+
+    <style>
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal a,
+        .modal input[type="submit"] {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+            .modal a:hover,
+            .modal input[type="submit"]:hover {
+                background-color: #0069d9;
+            }
+
+            .modal a:not(:last-child) {
+                margin-right: 10px;
+            }
+    </style>
+}
+
+<div class="container">
+    <a asp-action="Create">Create New</a>
+    <div id='calendar'></div>
+</div>

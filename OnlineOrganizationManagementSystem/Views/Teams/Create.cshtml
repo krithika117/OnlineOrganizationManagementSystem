@@ -69,13 +69,13 @@
                 var otherDropdowns = $(".dropdown").not(this);
 
                 // Disable selected employee in all other dropdowns
-                otherDropdowns.find("option[value='" + selectedEmployee + "']").prop("disabled", true);
+                otherDropdowns.find("option[value='" + selectedEmployee + "']").prop("hidden", true);
 
                 // Enable all previously selected employees in this dropdown
-                $(this).find("option").prop("disabled", false);
+                $(this).find("option").prop("hidden", false);
                 $(this).find("option").each(function () {
                     if ($.inArray($(this).val(), selectedEmployees) !== -1) {
-                        $(this).prop("disabled", true);
+                        $(this).prop("hidden", true);
                     }
                 });
 
@@ -90,7 +90,7 @@
                 // Enable the previously selected option in all other dropdowns
                 var previousValue = $(this).data("prev");
                 var otherDropdowns = $(".dropdown").not(this);
-                otherDropdowns.find("option[value='" + previousValue + "']").prop("disabled", false);
+                otherDropdowns.find("option[value='" + previousValue + "']").prop("hidden", false);
 
                 // Remove the previously selected employee from the array
                 var index = selectedEmployees.indexOf(previousValue);
