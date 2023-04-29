@@ -28,10 +28,14 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // GET: Notes
         public async Task<IActionResult> Index()
         {
-              return _context.Notes != null ? 
-                          View(await _context.Notes.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Notes'  is null.");
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var notes = await _context.Notes
+                .Where(n => n.UserId == user.Id)
+                .ToListAsync();
+
+            return View(notes);
         }
+
         [Authorize(Roles = "Manager, User")]
         // GET: Notes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -50,6 +54,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
             return View(notes);
         }
+
+
         [Authorize(Roles = "Manager, User")]
         // GET: Notes/Create
         public IActionResult Create()
@@ -67,30 +73,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             notes.UserId = user.Id;
-            foreach (var entry in ModelState)
-            {
-                var key = entry.Key;
-                var errors = entry.Value.Errors;
-
-                foreach (var error in errors)
-                {
-                    var errorMessage = error.ErrorMessage;
-                    var exception = error.Exception;
-
-                    Console.WriteLine(errorMessage);
-                    Console.WriteLine(exception);
-                }
-            }
+            Console.WriteLine(notes.UserId);
+            _context.Add(notes);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
             
-            if (ModelState.IsValid)
-            {
-                _context.Add(notes);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(notes);
         }
-
         // GET: Notes/Edit/5
         [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Edit(int? id)
