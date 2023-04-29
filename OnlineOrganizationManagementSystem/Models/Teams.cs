@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 public class Teams
 {
     [Key]
@@ -34,12 +33,10 @@ public class Teams
 
     [ForeignKey("TeamLead")]
     public string TeamLeadId { get; set; }
-
     public IdentityUser TeamLead;
 
     [ForeignKey("ReportsTo")]
     public string ReportsToId { get; set; }
-
     public IdentityUser ReportsTo;
 
 }

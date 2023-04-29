@@ -25,33 +25,27 @@
             </div>
             <div class="form-group">
                 <label asp-for="UIUXDeveloperId" class="control-label"></label>
-                <input asp-for="UIUXDeveloperId" class="form-control" />
-                <span asp-validation-for="UIUXDeveloperId" class="text-danger"></span>
+                <select asp-for="UIUXDeveloperId" class="form-control dropdown" asp-items="ViewBag.UIUXDeveloperId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="FrontendDeveloperId" class="control-label"></label>
-                <input asp-for="FrontendDeveloperId" class="form-control" />
-                <span asp-validation-for="FrontendDeveloperId" class="text-danger"></span>
+                <select asp-for="FrontendDeveloperId" class="form-control dropdown" asp-items="ViewBag.FrontendDeveloperId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="BackendDeveloperId" class="control-label"></label>
-                <input asp-for="BackendDeveloperId" class="form-control" />
-                <span asp-validation-for="BackendDeveloperId" class="text-danger"></span>
+                <select asp-for="BackendDeveloperId" class="form-control dropdown" asp-items="ViewBag.BackendDeveloperId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TesterId" class="control-label"></label>
-                <input asp-for="TesterId" class="form-control" />
-                <span asp-validation-for="TesterId" class="text-danger"></span>
+                <select asp-for="TesterId" class="form-control dropdown" asp-items="ViewBag.TesterId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TeamLeadId" class="control-label"></label>
-                <input asp-for="TeamLeadId" class="form-control" />
-                <span asp-validation-for="TeamLeadId" class="text-danger"></span>
+                <select asp-for="TeamLeadId" class="form-control dropdown" asp-items="ViewBag.TeamLeadId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ReportsToId" class="control-label"></label>
-                <input asp-for="ReportsToId" class="form-control" />
-                <span asp-validation-for="ReportsToId" class="text-danger"></span>
+                <select asp-for="ReportsToId" class="form-control dropdown" asp-items="ViewBag.ReportsToId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

@@ -20,3 +20,16 @@ body {
     font-family: 'DM Sans', sans-serif !important;
     margin-bottom: 60px;
 }
+
+.Low {
+    color: white !important;
+    background-color: lightseagreen !important;
+}
+.Medium {
+    color: white !important;
+    background-color: #e19b0be7 !important;
+}
+.Urgent{
+    color:white!important;
+    background-color:indianred !important;
+}

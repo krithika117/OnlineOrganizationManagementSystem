@@ -11,5 +11,6 @@ namespace OnlineOrganizationManagementSystem.Data
         {
         }
         public DbSet<Teams> Teams { get; set; }
+        public DbSet<Notes> Notes { get; set; }
     }
 }

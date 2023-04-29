@@ -109,6 +109,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
             {
                 return NotFound();
             }
+            ViewData["BackendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.BackendDeveloperId);
+            ViewData["FrontendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.FrontendDeveloperId);
+            ViewData["ReportsToId"] = new SelectList(_context.Users, "Id", "Email", teams.ReportsToId);
+            ViewData["TeamLeadId"] = new SelectList(_context.Users, "Id", "Email", teams.TeamLeadId);
+            ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Email", teams.TesterId);
+            ViewData["UIUXDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.UIUXDeveloperId);
             return View(teams);
         }
 
