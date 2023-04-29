@@ -8,7 +8,7 @@
 <div class="container">
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
     {
-        <a asp-action="Create" class="btn btn-secondary mb-3">+ Create Holiday</a>
+        <a asp-action="Create" class="btn btn-secondary mb-3">+ Create Event</a>
     }
     <div id='calendar'></div>
 </div>
