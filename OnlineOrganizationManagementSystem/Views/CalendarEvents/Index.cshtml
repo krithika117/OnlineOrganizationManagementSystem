@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-@model IEnumerable<OnlineOrganizationManagementSystem.Models.PublicHoliday>
+@model IEnumerable<OnlineOrganizationManagementSystem.Models.CalendarEvent>
 @inject SignInManager<IdentityUser> SignInManager
 
 @{
@@ -33,8 +33,8 @@
                     events: [
             @foreach (var item in Model)
             {
-                var editUrl = Url.Action("Edit", "PublicHolidays", new { id = item.Id });
-                var deleteUrl = Url.Action("Delete", "PublicHolidays", new { id = item.Id });
+                var editUrl = Url.Action("Edit", "CalendarEvents", new { id = item.Id });
+                var deleteUrl = Url.Action("Delete", "CalendarEvents", new { id = item.Id });
                 @Html.Raw("{")
                 @Html.Raw($"title: '{item.Title}',")
                 @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")
@@ -100,8 +100,8 @@
                     events: [
             @foreach (var item in Model)
             {
-                var editUrl = Url.Action("Edit", "PublicHolidays", new { id = item.Id });
-                var deleteUrl = Url.Action("Delete", "PublicHolidays", new { id = item.Id });
+                var editUrl = Url.Action("Edit", "CalendarEvents", new { id = item.Id });
+                var deleteUrl = Url.Action("Delete", "CalendarEvents", new { id = item.Id });
                 @Html.Raw("{")
                 @Html.Raw($"title: '{item.Title}',")
                 @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")

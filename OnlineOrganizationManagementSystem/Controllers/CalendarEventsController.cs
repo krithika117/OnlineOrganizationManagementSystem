@@ -6,93 +6,93 @@ using OnlineOrganizationManagementSystem.Models;
 
 namespace OnlineOrganizationManagementSystem.Controllers
 {
-    public class PublicHolidaysController : Controller
+    public class CalendarEvents : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PublicHolidaysController(ApplicationDbContext context)
+        public CalendarEvents(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: PublicHolidays
+        // GET: CalendarEvents
         [Authorize(Roles = "Admin, User, Manager")]
         public async Task<IActionResult> Index()
         {
-            return _context.PublicHoliday != null ?
-                        View(await _context.PublicHoliday.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.PublicHoliday'  is null.");
+            return _context.CalendarEvent != null ?
+                        View(await _context.CalendarEvent.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.CalendarEvent'  is null.");
         }
 
-        // GET: PublicHolidays/Details/5
+        // GET: CalendarEvents/Details/5
         [Authorize(Roles = "Admin, User, Manager")]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.PublicHoliday == null)
+            if (id == null || _context.CalendarEvent == null)
             {
                 return NotFound();
             }
 
-            var publicHoliday = await _context.PublicHoliday
+            var CalendarEvent = await _context.CalendarEvent
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (publicHoliday == null)
+            if (CalendarEvent == null)
             {
                 return NotFound();
             }
 
-            return View(publicHoliday);
+            return View(CalendarEvent);
         }
 
-        // GET: PublicHolidays/Create
+        // GET: CalendarEvents/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: PublicHolidays/Create
+        // POST: CalendarEvents/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Date")] PublicHoliday publicHoliday)
+        public async Task<IActionResult> Create([Bind("Id,Title,Date")] CalendarEvent CalendarEvent)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(publicHoliday);
+                _context.Add(CalendarEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(publicHoliday);
+            return View(CalendarEvent);
         }
 
-        // GET: PublicHolidays/Edit/5
+        // GET: CalendarEvents/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.PublicHoliday == null)
+            if (id == null || _context.CalendarEvent == null)
             {
                 return NotFound();
             }
 
-            var publicHoliday = await _context.PublicHoliday.FindAsync(id);
-            if (publicHoliday == null)
+            var CalendarEvent = await _context.CalendarEvent.FindAsync(id);
+            if (CalendarEvent == null)
             {
                 return NotFound();
             }
-            return View(publicHoliday);
+            return View(CalendarEvent);
         }
 
-        // POST: PublicHolidays/Edit/5
+        // POST: CalendarEvents/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Date")] PublicHoliday publicHoliday)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Date")] CalendarEvent CalendarEvent)
         {
-            if (id != publicHoliday.Id)
+            if (id != CalendarEvent.Id)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
             {
                 try
                 {
-                    _context.Update(publicHoliday);
+                    _context.Update(CalendarEvent);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PublicHolidayExists(publicHoliday.Id))
+                    if (!CalendarEventExists(CalendarEvent.Id))
                     {
                         return NotFound();
                     }
@@ -117,51 +117,51 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(publicHoliday);
+            return View(CalendarEvent);
         }
 
-        // GET: PublicHolidays/Delete/5
+        // GET: CalendarEvents/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.PublicHoliday == null)
+            if (id == null || _context.CalendarEvent == null)
             {
                 return NotFound();
             }
 
-            var publicHoliday = await _context.PublicHoliday
+            var CalendarEvent = await _context.CalendarEvent
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (publicHoliday == null)
+            if (CalendarEvent == null)
             {
                 return NotFound();
             }
 
-            return View(publicHoliday);
+            return View(CalendarEvent);
         }
 
-        // POST: PublicHolidays/Delete/5
+        // POST: CalendarEvents/Delete/5
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.PublicHoliday == null)
+            if (_context.CalendarEvent == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.PublicHoliday'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.CalendarEvent'  is null.");
             }
-            var publicHoliday = await _context.PublicHoliday.FindAsync(id);
-            if (publicHoliday != null)
+            var CalendarEvent = await _context.CalendarEvent.FindAsync(id);
+            if (CalendarEvent != null)
             {
-                _context.PublicHoliday.Remove(publicHoliday);
+                _context.CalendarEvent.Remove(CalendarEvent);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PublicHolidayExists(int id)
+        private bool CalendarEventExists(int id)
         {
-            return (_context.PublicHoliday?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.CalendarEvent?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

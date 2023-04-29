@@ -2,9 +2,10 @@
 
 namespace OnlineOrganizationManagementSystem.Models
 {
-    public class PublicHoliday
+    public class CalendarEvent
     {
         public int Id { get; set; }
+        public string EventType { get; set; }
 
         [Required]
         public string Title { get; set; }

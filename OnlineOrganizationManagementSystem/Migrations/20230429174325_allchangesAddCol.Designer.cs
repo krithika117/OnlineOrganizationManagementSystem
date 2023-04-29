@@ -12,8 +12,8 @@ using OnlineOrganizationManagementSystem.Data;
 namespace OnlineOrganizationManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230429162849_taskscreation")]
-    partial class taskscreation
+    [Migration("20230429174325_allchangesAddCol")]
+    partial class allchangesAddCol
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,6 +226,34 @@ namespace OnlineOrganizationManagementSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.CalendarEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CalendarEvent");
+                });
+
             modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.Notes", b =>
                 {
                     b.Property<int>("Id")
@@ -255,26 +283,6 @@ namespace OnlineOrganizationManagementSystem.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.PublicHoliday", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PublicHoliday");
-                });
-
             modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.Tasks", b =>
                 {
                     b.Property<int>("Id")
@@ -290,6 +298,13 @@ namespace OnlineOrganizationManagementSystem.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ManagerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -304,6 +319,8 @@ namespace OnlineOrganizationManagementSystem.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AssigneeId");
+
+                    b.HasIndex("ManagerId");
 
                     b.HasIndex("TeamId");
 
@@ -414,6 +431,12 @@ namespace OnlineOrganizationManagementSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Teams", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
@@ -421,6 +444,8 @@ namespace OnlineOrganizationManagementSystem.Migrations
                         .IsRequired();
 
                     b.Navigation("Assignee");
+
+                    b.Navigation("Manager");
 
                     b.Navigation("Team");
                 });

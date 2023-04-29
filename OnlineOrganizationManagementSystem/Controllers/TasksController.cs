@@ -97,13 +97,13 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AssigneeId,ManagerId,Status,CreatedAt,DueDate,TeamId")] Tasks tasks)
         {
+            Console.WriteLine("Called");
             if (id != tasks.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+         
                 try
                 {
                     _context.Update(tasks);
@@ -120,12 +120,11 @@ namespace OnlineOrganizationManagementSystem.Controllers
                         throw;
                     }
                 }
+                ViewData["AssigneeId"] = new SelectList(_context.Users, "Id", "Email", tasks.AssigneeId);
+                ViewData["ManagerId"] = new SelectList(_context.Users, "Id", "Email", tasks.ManagerId);
+                ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name", tasks.TeamId);
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["AssigneeId"] = new SelectList(_context.Users, "Id", "Email", tasks.AssigneeId);
-            ViewData["ManagerId"] = new SelectList(_context.Users, "Id", "Email", tasks.ManagerId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name", tasks.TeamId);
-            return View(tasks);
+           
         }
 
         // GET: Tasks/Delete/5

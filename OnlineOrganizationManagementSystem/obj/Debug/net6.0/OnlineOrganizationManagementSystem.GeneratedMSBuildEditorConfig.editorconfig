@@ -60,6 +60,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/CalendarEvents/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJFdmVudHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/CalendarEvents/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJFdmVudHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/CalendarEvents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJFdmVudHNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/CalendarEvents/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJFdmVudHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/CalendarEvents/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJFdmVudHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -82,26 +102,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/Notes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90ZXNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/PublicHolidays/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljSG9saWRheXNcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/PublicHolidays/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljSG9saWRheXNcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/PublicHolidays/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljSG9saWRheXNcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/PublicHolidays/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljSG9saWRheXNcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/PublicHolidays/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHVibGljSG9saWRheXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/source/OnlineOrganizationManagementSystem/OnlineOrganizationManagementSystem/Views/Shared/Error.cshtml]
