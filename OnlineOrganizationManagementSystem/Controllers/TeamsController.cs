@@ -60,14 +60,14 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
         // GET: Teams/Create
         [Authorize(Roles = "Manager")]
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
-            ViewData["BackendDeveloperId"] = new SelectList(_context.Users, "Id", "Email");
-            ViewData["FrontendDeveloperId"] = new SelectList(_context.Users, "Id", "Email");
-            ViewData["ReportsToId"] = new SelectList(_context.Users, "Id", "Email");
-            ViewData["TeamLeadId"] = new SelectList(_context.Users, "Id", "Email");
-            ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Email");
-            ViewData["UIUXDeveloperId"] = new SelectList(_context.Users, "Id", "Email");
+            ViewData["BackendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
+            ViewData["FrontendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
+            ViewData["ReportsToId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Manager"), "Id", "Email");
+            ViewData["TeamLeadId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
+            ViewData["TesterId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
+            ViewData["UIUXDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
             return View();
         }
 
@@ -102,12 +102,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BackendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.BackendDeveloperId);
-            ViewData["FrontendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.FrontendDeveloperId);
-            ViewData["ReportsToId"] = new SelectList(_context.Users, "Id", "Email", teams.ReportsToId);
-            ViewData["TeamLeadId"] = new SelectList(_context.Users, "Id", "Email", teams.TeamLeadId);
-            ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Email", teams.TesterId);
-            ViewData["UIUXDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.UIUXDeveloperId);
+            ViewData["BackendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.BackendDeveloperId);
+            ViewData["FrontendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.FrontendDeveloperId);
+            ViewData["ReportsToId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Manager"), "Id", "Email", teams.ReportsToId);
+            ViewData["TeamLeadId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.TeamLeadId);
+            ViewData["TesterId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.TesterId);
+            ViewData["UIUXDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.UIUXDeveloperId);
             return View(teams);
         }
 
@@ -126,12 +126,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
             {
                 return NotFound();
             }
-            ViewData["BackendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.BackendDeveloperId);
-            ViewData["FrontendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.FrontendDeveloperId);
-            ViewData["ReportsToId"] = new SelectList(_context.Users, "Id", "Email", teams.ReportsToId);
-            ViewData["TeamLeadId"] = new SelectList(_context.Users, "Id", "Email", teams.TeamLeadId);
-            ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Email", teams.TesterId);
-            ViewData["UIUXDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.UIUXDeveloperId);
+            ViewData["BackendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.BackendDeveloperId);
+            ViewData["FrontendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.FrontendDeveloperId);
+            ViewData["ReportsToId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Manager"), "Id", "Email", teams.ReportsToId);
+            ViewData["TeamLeadId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.TeamLeadId);
+            ViewData["TesterId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.TesterId);
+            ViewData["UIUXDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.UIUXDeveloperId);
             return View(teams);
         }
 
@@ -186,12 +186,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
             {
                 return NotFound();
             }
-            ViewData["BackendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.BackendDeveloperId);
-            ViewData["FrontendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.FrontendDeveloperId);
-            ViewData["ReportsToId"] = new SelectList(_context.Users, "Id", "Email", teams.ReportsToId);
-            ViewData["TeamLeadId"] = new SelectList(_context.Users, "Id", "Email", teams.TeamLeadId);
-            ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Email", teams.TesterId);
-            ViewData["UIUXDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.UIUXDeveloperId);
+            ViewData["BackendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.BackendDeveloperId);
+            ViewData["FrontendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.FrontendDeveloperId);
+            ViewData["ReportsToId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Manager"), "Id", "Email", teams.ReportsToId);
+            ViewData["TeamLeadId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.TeamLeadId);
+            ViewData["TesterId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.TesterId);
+            ViewData["UIUXDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.UIUXDeveloperId);
             return View(teams);
         }
 

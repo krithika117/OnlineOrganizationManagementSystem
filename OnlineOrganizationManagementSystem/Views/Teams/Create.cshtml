@@ -1,4 +1,6 @@
-﻿@model Teams
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager;
+@model Teams
 
 @{
     ViewData["Title"] = "Create";
@@ -42,9 +44,9 @@
                 <label asp-for="TeamLeadId" class="control-label"></label>
                 <select asp-for="TeamLeadId" class="form-control dropdown" asp-items="ViewBag.TeamLeadId"></select>
             </div>
-            <div class="form-group">
+            <div class="form-group d-none">
                 <label asp-for="ReportsToId" class="control-label"></label>
-                <select asp-for="ReportsToId" class="form-control dropdown" asp-items="ViewBag.ReportsToId"></select>
+                <input asp-for="ReportsToId" class="form-control dropdown" value="@UserManager.GetUserId(User)" type="hidden"/>
             </div> 
             <div class="form-group">
                 <label asp-for="ProjectStatus" class="control-label"></label>
