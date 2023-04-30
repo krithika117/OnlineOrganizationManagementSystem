@@ -8,10 +8,12 @@
 
 <h1>My Tasks</h1>
 
+@if (User.IsInRole("Manager"))
+{
+    
+    <a asp-action="Create" class="btn btn-secondary">+ Create New</a>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -51,7 +53,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ManagerId)
             </td>
-            <td>
+                <td class="@item.Status">
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
@@ -71,13 +73,17 @@
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 }
                 else {
+                        if (@item.Status == "Due")
+                        {
                       <a asp-action="Create" asp-controller="Mails" 
                         asp-route-sender="@User.Identity.Name"
-                   asp-route-receiver="@(await UserManager.FindByIdAsync(item.ManagerId))"
+                        asp-route-receiver="@(await UserManager.FindByIdAsync(item.ManagerId))"
                         asp-route-subject="Request Review"
                         asp-route-body="Review for Task @item.Id"
+                        asp-route-taskId="@item.Id"
                    class="btn btn-danger">Request Review</a>
-                }
+                        }
+                        }
             </td>
         </tr>
 }

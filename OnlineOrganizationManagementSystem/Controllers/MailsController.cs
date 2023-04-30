@@ -56,7 +56,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
         
         [HttpGet]
-        public IActionResult Create(string sender, string receiver, string subject, string body)
+        public async Task<IActionResult> Create(string sender, string receiver, string subject, string body, int taskId)
         {
             var mail = new Messages
             {
@@ -67,7 +67,13 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 Status = "Opened",
                 DateCreated = DateTime.Now
             };
-
+            var task = await _context.Tasks.FindAsync(taskId);
+            if (task != null)
+            {
+                task.Status = "Review";
+                _context.Tasks.Update(task);
+                await _context.SaveChangesAsync();
+            }
             return View(mail);
         }
 
