@@ -6,7 +6,7 @@
     ViewData["Title"] = "Index";
 }
 <div class="container">
-    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Admin")) || (SignInManager.IsSignedIn(User) && User.IsInRole("Manager")))
     {
         <a asp-action="Create" class="btn btn-secondary mb-3">+ Create Event</a>
     }

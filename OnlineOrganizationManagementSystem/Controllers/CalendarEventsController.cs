@@ -56,7 +56,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,EventType,Date")] CalendarEvent CalendarEvent)
+        public async Task<IActionResult> Create([Bind("Id,Title,Date")] CalendarEvent CalendarEvent)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,EventType,Date")] CalendarEvent CalendarEvent)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Date")] CalendarEvent CalendarEvent)
         {
             if (id != CalendarEvent.Id)
             {
