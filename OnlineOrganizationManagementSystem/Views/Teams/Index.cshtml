@@ -6,110 +6,119 @@
 }
 
 <h1>Index</h1>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                UI/UX Developer
-            </th>
-            <th>
-                Frontend Developer
-            </th>
-            <th>
-                Backend Developer
-            </th>
-            <th>
-                Tester
-            </th>
-            <th>
-                Team Lead
-            </th>
-            <th>
-                Reports To
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @{
-                        var uiuxDeveloper = await _context.Users.FindAsync(item.UIUXDeveloperId);
-                        if (uiuxDeveloper != null)
-                        {
-                            @uiuxDeveloper.Email
-                        }
-                    }
-                </td>
-                <td>
-                    @{
-                        var frontendDeveloper = await _context.Users.FindAsync(item.FrontendDeveloperId);
-                        if (frontendDeveloper != null)
-                        {
-                            @frontendDeveloper.Email
-                        }
-                    }
-                </td>
-                <td>
-                    @{
-                        var backendDeveloper = await _context.Users.FindAsync(item.BackendDeveloperId);
-                        if (backendDeveloper != null)
-                        {
-                            @backendDeveloper.Email
-                        }
-                    }
-                </td>
-                <td>
-                    @{
-                        var tester = await _context.Users.FindAsync(item.TesterId);
-                        if (tester != null)
-                        {
-                            @tester.Email
-                        }
-                    }
-                </td>
-                <td>
-                    @{
-                        var teamLead = await _context.Users.FindAsync(item.TeamLeadId);
-                        if (teamLead != null)
-                        {
-                            @teamLead.Email
-                        }
-                    }
-                </td>
-                <td>
-                    @{
-                        var reportsTo = await _context.Users.FindAsync(item.ReportsToId);
-                        if (reportsTo != null)
-                        {
-                            @reportsTo.Email
-                        }
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+<div class="card-deck">
+    @foreach (var item in Model)
+    {
+        <div class="card shadow border-0 my-2">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Description)</h6>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <div class="badge badge-box text-primary">@Html.DisplayFor(modelItem => item.ProjectStatus)</div>
+                    </div>
+                </div>
+
+                <hr>
+                <h6 class="card-subtitle mb-2 text-muted">Team Members</h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-6"><strong>UI/UX Developer:</strong></div>
+                            <div class="col-sm-6">
+                                @{
+                                    var uiuxDeveloper = await _context.Users.FindAsync(item.UIUXDeveloperId);
+                                    if (uiuxDeveloper != null)
+                                    {
+                                        @uiuxDeveloper.Email
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-6"><strong>Frontend Developer:</strong></div>
+                            <div class="col-sm-6">
+                                @{
+                                    var frontendDeveloper = await _context.Users.FindAsync(item.FrontendDeveloperId);
+                                    if (frontendDeveloper != null)
+                                    {
+                                        @frontendDeveloper.Email
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-6"><strong>Backend Developer:</strong></div>
+                            <div class="col-sm-6">
+                                @{
+                                    var backendDeveloper = await _context.Users.FindAsync(item.BackendDeveloperId);
+                                    if (backendDeveloper != null)
+                                    {
+                                        @backendDeveloper.Email
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-6"><strong>Tester:</strong></div>
+                            <div class="col-sm-6">
+                                @{
+                                    var tester = await _context.Users.FindAsync(item.TesterId);
+                                    if (tester != null)
+                                    {
+                                        @tester.Email
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-6"><strong>Team Lead:</strong></div>
+                            <div class="col-sm-6">
+                                @{
+                                    var teamLead = await _context.Users.FindAsync(item.TeamLeadId);
+                                    if (teamLead != null)
+                                    {
+                                        @teamLead.Email
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-6"><strong>Reports To:</strong></div>
+                            <div class="col-sm-6">
+                                @{
+                                    var reportsTo = await _context.Users.FindAsync(item.ReportsToId);
+                                    if (reportsTo != null)
+                                    {
+                                        @reportsTo.Email
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <hr>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            </div>
+            </div>
+        </div>
+    }
+</div> 

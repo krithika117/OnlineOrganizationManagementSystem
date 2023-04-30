@@ -45,6 +45,13 @@
             <div class="form-group">
                 <label asp-for="ReportsToId" class="control-label"></label>
                 <select asp-for="ReportsToId" class="form-control dropdown" asp-items="ViewBag.ReportsToId"></select>
+            </div> 
+            <div class="form-group">
+                <label asp-for="ProjectStatus" class="control-label"></label>
+                <select asp-for="ProjectStatus" class="form-control dropdown">
+                    <option value="Onprogress">Onprogress</option>
+                    <option value="Completed">Completed</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

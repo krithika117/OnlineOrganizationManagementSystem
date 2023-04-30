@@ -39,4 +39,5 @@ public class Teams
     public string ReportsToId { get; set; }
     public IdentityUser ReportsTo;
 
+    public string ProjectStatus { get; set; }
 }

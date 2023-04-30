@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Teams
+        [Authorize]
         public async Task<IActionResult> Index()
         {
               return _context.Teams != null ? 
@@ -27,6 +29,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Teams/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Teams == null)
@@ -45,6 +48,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Teams/Create
+        [Authorize(Roles = "Manager")]
         public IActionResult Create()
         {
             ViewData["BackendDeveloperId"] = new SelectList(_context.Users, "Id", "Email");
@@ -59,9 +63,10 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Teams/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,UIUXDeveloperId,FrontendDeveloperId,BackendDeveloperId,TesterId,TeamLeadId,ReportsToId")] Teams teams)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,UIUXDeveloperId,FrontendDeveloperId,BackendDeveloperId,TesterId,TeamLeadId,ReportsToId,ProjectStatus")] Teams teams)
         {
             foreach (var entry in ModelState)
             {
@@ -97,6 +102,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
 
         // GET: Teams/Edit/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Teams == null)
@@ -121,9 +127,10 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Teams/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,UIUXDeveloperId,FrontendDeveloperId,BackendDeveloperId,TesterId,TeamLeadId,ReportsToId")] Teams teams)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,UIUXDeveloperId,FrontendDeveloperId,BackendDeveloperId,TesterId,TeamLeadId,ReportsToId,ProjectStatus")] Teams teams)
         {
             if (id != teams.Id)
             {
@@ -154,6 +161,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Teams/Delete/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Teams == null)
@@ -172,6 +180,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // POST: Teams/Delete/5
+        [Authorize(Roles = "Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

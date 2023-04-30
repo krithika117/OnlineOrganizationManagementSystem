@@ -33,3 +33,8 @@ body {
     color:white!important;
     background-color:indianred !important;
 }
+.badge-box{
+    display:inline-block;
+    border: 1px solid;
+    padding:5px;
+}
