@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineOrganizationManagementSystem.Data;
@@ -19,10 +20,25 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Admin, User, Manager")]
         public async Task<IActionResult> Index()
         {
-            return _context.CalendarEvent != null ?
-                        View(await _context.CalendarEvent.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.CalendarEvent'  is null.");
-        }
+            
+                var meetings = await _context.Meetings.ToListAsync();
+                var events = await _context.CalendarEvent.ToListAsync();
+
+                var calendarItems = meetings.Select(m => new CalendarEvent
+                {
+                    Title = m.Title,
+                    Date = m.Date,
+                  
+                }).Union(events.Select(e => new CalendarEvent
+                {
+                    Title = e.Title,
+                    Date = e.Date,
+                    
+                })).OrderBy(c => c.Date);
+
+                return View(calendarItems);
+            }
+     
 
         // GET: CalendarEvents/Details/5
         [Authorize(Roles = "Admin, User, Manager")]

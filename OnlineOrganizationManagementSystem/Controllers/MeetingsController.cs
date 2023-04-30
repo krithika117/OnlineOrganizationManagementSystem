@@ -35,8 +35,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
             }
 
             var meeting = await _context.Meetings
-                .Include(m => m.Team)
-                .FirstOrDefaultAsync(m => m.Id == id);
+              .Include(m => m.Team)
+              .FirstOrDefaultAsync(m => m.Id == id);
             if (meeting == null)
             {
                 return NotFound();
@@ -62,8 +62,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             _context.Add(meeting);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-            
-        
+
         }
 
         // GET: Meetings/Edit/5
@@ -95,25 +94,24 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 return NotFound();
             }
 
-           
-                try
+            try
+            {
+                _context.Update(meeting);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MeetingExists(meeting.Id))
                 {
-                    _context.Update(meeting);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!MeetingExists(meeting.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
-                return RedirectToAction(nameof(Index));
-            
+            }
+            return RedirectToAction(nameof(Index));
+
             //ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name", meeting.TeamId);
             //return View(meeting);
         }
@@ -127,8 +125,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
             }
 
             var meeting = await _context.Meetings
-                .Include(m => m.Team)
-                .FirstOrDefaultAsync(m => m.Id == id);
+              .Include(m => m.Team)
+              .FirstOrDefaultAsync(m => m.Id == id);
             if (meeting == null)
             {
                 return NotFound();
@@ -151,14 +149,14 @@ namespace OnlineOrganizationManagementSystem.Controllers
             {
                 _context.Meetings.Remove(meeting);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MeetingExists(int id)
         {
-          return (_context.Meetings?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Meetings?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
