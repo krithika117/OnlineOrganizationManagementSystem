@@ -1,4 +1,4 @@
-﻿@model OnlineOrganizationManagementSystem.Models.Mail
+﻿@model OnlineOrganizationManagementSystem.Models.Messages
 
 @{
     ViewData["Title"] = "Create";
@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="SenderMail" class="control-label"></label>
-                <input asp-for="SenderMail" class="form-control" />
+                <input asp-for="SenderMail" class="form-control" value="@User.Identity.Name" readonly/>
                 <span asp-validation-for="SenderMail" class="text-danger"></span>
             </div>
             <div class="form-group">

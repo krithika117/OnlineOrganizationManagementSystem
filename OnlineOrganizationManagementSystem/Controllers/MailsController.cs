@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Mails
+        [Authorize]
         public async Task<IActionResult> Index()
         {
               return _context.Mail != null ? 
@@ -28,6 +30,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Mails/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Mail == null)
@@ -45,18 +48,36 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View(mail);
         }
 
+        [Authorize]
         // GET: Mails/Create
         public IActionResult Create()
         {
             return View();
         }
+        
+        [HttpGet]
+        public IActionResult Create(string sender, string receiver, string subject, string body)
+        {
+            var mail = new Messages
+            {
+                SenderMail = sender,
+                ReceiverMail = receiver,
+                Subject = subject,
+                Body = body,
+                Status = "Opened",
+                DateCreated = DateTime.Now
+            };
+
+            return View(mail);
+        }
 
         // POST: Mails/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SenderMail,ReceiverMail,Subject,Body,DateCreated,Status")] Mail mail)
+        public async Task<IActionResult> Create([Bind("Id,SenderMail,ReceiverMail,Subject,Body,DateCreated,Status")] Messages mail)
         {
             if (ModelState.IsValid)
             {
@@ -65,8 +86,11 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(mail);
-        }
+        } 
+        
+    
 
+        [Authorize(Roles ="Admin, Manager")]
         // GET: Mails/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,9 +110,10 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Mails/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SenderMail,ReceiverMail,Subject,Body,DateCreated,Status")] Mail mail)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SenderMail,ReceiverMail,Subject,Body,DateCreated,Status")] Messages mail)
         {
             if (id != mail.Id)
             {
@@ -119,6 +144,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Mails/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Mail == null)
@@ -137,6 +163,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // POST: Mails/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.Tasks>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -69,7 +71,12 @@
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 }
                 else {
-                    // <a asp-action="RequestReview" asp-route-id="@item.Id">Request for Review</a>
+                      <a asp-action="Create" asp-controller="Mails" 
+                        asp-route-sender="@User.Identity.Name"
+                   asp-route-receiver="@(await UserManager.FindByIdAsync(item.ManagerId))"
+                        asp-route-subject="Request Review"
+                        asp-route-body="Review for Task @item.Id"
+                   class="btn btn-danger">Request Review</a>
                 }
             </td>
         </tr>

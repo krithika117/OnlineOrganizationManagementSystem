@@ -303,9 +303,13 @@ namespace OnlineOrganizationManagementSystem.Controllers
             var archives = await _context.Archives.Where(a => a.ReportsToId == userId).ToListAsync();
             return View(archives);
         }
+
+       
         private bool TeamsExists(int id)
         {
           return (_context.Teams?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
     }
 }
