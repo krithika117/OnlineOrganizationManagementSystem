@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -294,6 +295,14 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Retrieve Archives
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> Archival()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var archives = await _context.Archives.Where(a => a.ReportsToId == userId).ToListAsync();
+            return View(archives);
+        }
         private bool TeamsExists(int id)
         {
           return (_context.Teams?.Any(e => e.Id == id)).GetValueOrDefault();

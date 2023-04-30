@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Assignee)
+                @Html.DisplayNameFor(model => model.AssigneeId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ManagerId)
@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Assignee.Id)
+                @Html.DisplayFor(modelItem => item.AssigneeId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ManagerId)

@@ -1,5 +1,6 @@
 ﻿@model OnlineOrganizationManagementSystem.Models.Tasks
-
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> UserManager;
 @{
     ViewData["Title"] = "Create";
 }
@@ -17,13 +18,20 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
-                <label asp-for="AssigneeId" class="control-label"></label>
-                <select asp-for="AssigneeId" class ="form-control" asp-items="ViewBag.AssigneeId"></select>
+                <label asp-for="TeamId" class="control-label"></label>
+                <select id="teamDropdown" asp-for="TeamId" class="form-control" asp-items="ViewBag.TeamId">
+                    <option value="">Select a team</option>
+                </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="assigneeDropdownContainer" style="display:none;">
+                <label asp-for="AssigneeId" class="control-label"></label>
+                <select id="assigneeDropdown" asp-for="AssigneeId" class="form-control" asp-items="ViewBag.AssigneeId"></select>
+            </div>
+            <div class="form-group d-none">
                 <label asp-for="ManagerId" class="control-label"></label>
-                <select asp-for="ManagerId" class ="form-control" asp-items="ViewBag.ManagerId"></select>
+                <input asp-for="ManagerId" class="form-control" value="@UserManager.GetUserId(User)"/>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
@@ -44,10 +52,7 @@
                 <input asp-for="DueDate" class="form-control" />
                 <span asp-validation-for="DueDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TeamId" class="control-label"></label>
-                <select asp-for="TeamId" class ="form-control" asp-items="ViewBag.TeamId"></select>
-            </div>
+           
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -60,5 +65,42 @@
 </div>
 
 @section Scripts {
+    <script>
+        $(document).ready(function () {
+            var assigneeDropdown = $('#assigneeDropdown');
+            var assigneeDropdownContainer = $('#assigneeDropdownContainer');
+
+            $('#teamDropdown').change(function () {
+                var teamId = $(this).val();
+
+                if (teamId === '') {
+                    // Hide the assignee dropdown if no team is selected
+                    assigneeDropdownContainer.hide();
+                    assigneeDropdown.empty();
+                    return;
+                }
+
+                // Make an AJAX call to get the assignees for the selected team
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetAssigneesForTeam", "Tasks")',
+                    data: { teamId: teamId },
+                    success: function (result) {
+                        // Clear the current assignee options and add the new ones
+                        assigneeDropdown.empty();
+                        $.each(result, function (i, assignee) {
+                            assigneeDropdown.append($('<option></option>').val(assignee.value).text(assignee.text));
+                        });
+
+                        // Show the assignee dropdown once the options have been loaded
+                        assigneeDropdownContainer.show();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

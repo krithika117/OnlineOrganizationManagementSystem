@@ -6,12 +6,18 @@
     ViewData["Title"] = "Index";
 }
 <div class="container">
-    @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Admin")) || (SignInManager.IsSignedIn(User) && User.IsInRole("Manager")))
+    @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Admin")))
     {
-        <a asp-controller="Meetings" asp-action="Create" class="btn btn-secondary mb-3">+ Create Meeting</a>
+        
         <a asp-action="Create" class="btn btn-secondary mb-3">+ Create Event</a>
         
-    }
+    }  
+    @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Manager")))
+    {
+        <a asp-controller="Meetings" asp-action="Create" class="btn btn-secondary mb-3">+ Create Meeting</a>
+        
+        
+    }  
     <div id='calendar'></div>
 </div>
 

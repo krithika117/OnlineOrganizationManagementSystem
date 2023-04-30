@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,11 @@ namespace OnlineOrganizationManagementSystem.Controllers
     public class MeetingsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public MeetingsController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public MeetingsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Meetings
@@ -46,9 +48,10 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name");
+            var currentUser = await _userManager.GetUserAsync(User);
+            ViewData["TeamId"] = new SelectList(_context.Teams.Where(n => n.ReportsToId == currentUser.Id), "Id", "Name");
             return View();
         }
 

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Archives>
+
+@{
+    ViewData["Title"] = "My Archives";
+}
+
+<h1>My Archives</h1>
+
+<div class="card-columns">
+    @foreach (var archive in Model)
+    {
+        <div class="card my-5">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h5 class="card-title">@archive.Name</h5>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <div class="badge badge-box text-primary">@archive.ProjectStatus</div>
+                    </div>
+                </div>
+                
+                <p class="card-text">@archive.Description</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><span class="font-weight-bold">UI/UX Developer:</span> @archive.UIUXDeveloperId</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Frontend Developer:</span> @archive.FrontendDeveloperId</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Backend Developer:</span> @archive.BackendDeveloperId</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Tester:</span> @archive.TesterId</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Team Lead:</span> @archive.TeamLeadId</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Reports To:</span> @archive.ReportsToId</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Date Archived:</span> @archive.DateArchived.ToString("dd-MM-yyyy")</li>
+                </ul>
+            </div>
+        </div>
+    }
+</div>

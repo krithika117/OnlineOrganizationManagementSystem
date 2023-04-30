@@ -29,7 +29,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
             var currUserTasks = await _context.Tasks
-                .Where(n => n.AssigneeId == currentUser.Id)
+                .Where(n => n.AssigneeId == currentUser.Id || n.ManagerId == currentUser.Id)
                 .ToListAsync();
             //var applicationDbContext = _context.Tasks.Include(t => t.Assignee).Include(t => t.Manager).Include(t => t.Team);
             return View(currUserTasks);
@@ -57,13 +57,49 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Tasks/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var currentUser = await _userManager.GetUserAsync(User);
             ViewData["AssigneeId"] = new SelectList(_context.Users, "Id", "Email");
             ViewData["ManagerId"] = new SelectList(_context.Users, "Id", "Email");
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name");
+            ViewData["TeamId"] = new SelectList(_context.Teams.Where(t => t.ReportsToId == currentUser.Id), "Id", "Name");
             return View();
         }
+
+
+        public IActionResult GetAssigneesForTeam(int teamId)
+        {
+            Console.WriteLine("GetAssigneesForTeam Team ID " + teamId);
+            var team = _context.Teams.FirstOrDefault(t => t.Id == teamId);
+
+            List<SelectListItem> assignees = new List<SelectListItem>();
+
+            // Add each assignee to the list
+            if (team.UIUXDeveloperId != null)
+            {
+                assignees.Add(new SelectListItem { Value = team.UIUXDeveloperId, Text = team.UIUXDeveloperId });
+            }
+            if (team.FrontendDeveloperId != null)
+            {
+                assignees.Add(new SelectListItem { Value = team.FrontendDeveloperId, Text = team.FrontendDeveloperId });
+            }
+            if (team.BackendDeveloperId != null)
+            {
+                assignees.Add(new SelectListItem { Value = team.BackendDeveloperId, Text = team.BackendDeveloperId });
+            }
+            if (team.TesterId != null)
+            {
+                assignees.Add(new SelectListItem { Value = team.TesterId, Text = team.TesterId });
+            }
+            if (team.TeamLeadId != null)
+            {
+                assignees.Add(new SelectListItem { Value = team.TeamLeadId, Text = team.TeamLeadId });
+            }
+
+            return Json(assignees);
+        }
+
+
 
         // POST: Tasks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
