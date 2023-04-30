@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,10 +23,20 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings
+        [Authorize(Roles ="Manager")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Meetings.Include(m => m.Team);
-            return View(await applicationDbContext.ToListAsync());
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            var currentTeam = await _context.Teams
+            .FirstOrDefaultAsync(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id);
+
+            if (currentTeam != null)
+            {
+                var events = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
+                return View(events);
+            }
+            return View();
         }
 
         // GET: Meetings/Details/5
@@ -48,6 +59,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings/Create
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> CreateAsync()
         {
             var currentUser = await _userManager.GetUserAsync(User);

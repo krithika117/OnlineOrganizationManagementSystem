@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,18 +15,20 @@ namespace OnlineOrganizationManagementSystem.Controllers
     public class MailsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public MailsController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public MailsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Mails
         [Authorize]
         public async Task<IActionResult> Index()
         {
-              return _context.Mail != null ? 
-                          View(await _context.Mail.OrderByDescending(d => d.DateCreated).ToListAsync()) :
+            var currentUser = await _userManager.GetUserAsync(User);
+            return _context.Mail != null ?
+                          View(await _context.Mail.Where(n => n.SenderMail == currentUser.Email || n.ReceiverMail == currentUser.Email).OrderByDescending(d => d.DateCreated).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Mail'  is null.");
         }
 
