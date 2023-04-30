@@ -16,5 +16,6 @@ namespace OnlineOrganizationManagementSystem.Data
         public DbSet<CalendarEvent> CalendarEvent { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Archives> Archives { get; set; }
+        public DbSet<Mail> Mail { get; set; }
     }
 }

@@ -25,14 +25,30 @@ body {
     color: white !important;
     background-color: lightseagreen !important;
 }
-.Medium {
+.Medium  {
     color: white !important;
     background-color: #e19b0be7 !important;
 }
-.Urgent{
-    color:white!important;
-    background-color:indianred !important;
+.Urgent {
+    color: white !important;
+    background-color: indianred !important;
 }
+
+.Closed {
+    
+    color: lightseagreen !important;
+}
+ .Working {
+    
+    color: #e19b0be7 !important;
+}
+.Opened {
+    
+    color: indianred !important;
+}
+
+
+
 .badge-box{
     display:inline-block;
     border: 1px solid;
