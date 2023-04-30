@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,17 +15,24 @@ namespace OnlineOrganizationManagementSystem.Controllers
     public class TasksController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public TasksController(ApplicationDbContext context)
+        public TasksController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Tasks
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tasks.Include(t => t.Assignee).Include(t => t.Manager).Include(t => t.Team);
-            return View(await applicationDbContext.ToListAsync());
+            var currentUser = await _userManager.GetUserAsync(User);
+            var currUserTasks = await _context.Tasks
+                .Where(n => n.AssigneeId == currentUser.Id)
+                .ToListAsync();
+            //var applicationDbContext = _context.Tasks.Include(t => t.Assignee).Include(t => t.Manager).Include(t => t.Team);
+            return View(currUserTasks);
         }
 
         // GET: Tasks/Details/5
