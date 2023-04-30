@@ -12,8 +12,8 @@ using OnlineOrganizationManagementSystem.Data;
 namespace OnlineOrganizationManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230429174325_allchangesAddCol")]
-    partial class allchangesAddCol
+    [Migration("20230430121109_addedTeamIdCol")]
+    partial class addedTeamIdCol
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,6 +226,61 @@ namespace OnlineOrganizationManagementSystem.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.Archives", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("BackendDeveloperId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateArchived")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FrontendDeveloperId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProjectStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReportsToId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TeamLeadId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TesterId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UIUXDeveloperId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Archives");
+                });
+
             modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.CalendarEvent", b =>
                 {
                     b.Property<int>("Id")
@@ -237,21 +292,45 @@ namespace OnlineOrganizationManagementSystem.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("CalendarEvent");
+                });
+
+            modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.Meeting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("Meetings");
                 });
 
             modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.Notes", b =>
@@ -351,6 +430,10 @@ namespace OnlineOrganizationManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProjectStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ReportsToId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -421,6 +504,17 @@ namespace OnlineOrganizationManagementSystem.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.Meeting", b =>
+                {
+                    b.HasOne("Teams", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.Tasks", b =>

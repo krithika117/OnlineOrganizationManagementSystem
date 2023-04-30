@@ -3,29 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineOrganizationManagementSystem.Data;
+using OnlineOrganizationManagementSystem.Models;
 
 namespace OnlineOrganizationManagementSystem.Controllers
 {
     public class TeamsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public TeamsController(ApplicationDbContext context)
+        public TeamsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Teams
         [Authorize]
         public async Task<IActionResult> Index()
         {
-              return _context.Teams != null ? 
-                          View(await _context.Teams.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Teams'  is null.");
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            var currentTeam = await _context.Teams
+            .Where(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id).ToListAsync();
+            //var applicationDbContext = _context.Tasks.Include(t => t.Assignee).Include(t => t.Manager).Include(t => t.Team);
+            return View(currentTeam);
+
+            //return _context.Teams != null ? 
+            //              View(await _context.Teams.ToListAsync()) :
+            //              Problem("Entity set 'ApplicationDbContext.Teams'  is null.");
         }
 
         // GET: Teams/Details/5
@@ -158,6 +169,90 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(teams);
+        }
+
+        // GET: Teams/Delete/5
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> Close(int? id)
+        {
+            if (id == null || _context.Teams == null)
+            {
+                return NotFound();
+            }
+
+            var teams = await _context.Teams
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (teams == null)
+            {
+                return NotFound();
+            }
+            ViewData["BackendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.BackendDeveloperId);
+            ViewData["FrontendDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.FrontendDeveloperId);
+            ViewData["ReportsToId"] = new SelectList(_context.Users, "Id", "Email", teams.ReportsToId);
+            ViewData["TeamLeadId"] = new SelectList(_context.Users, "Id", "Email", teams.TeamLeadId);
+            ViewData["TesterId"] = new SelectList(_context.Users, "Id", "Email", teams.TesterId);
+            ViewData["UIUXDeveloperId"] = new SelectList(_context.Users, "Id", "Email", teams.UIUXDeveloperId);
+            return View(teams);
+        }
+
+        //Archive Project
+        [Authorize(Roles = "Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Close(int id, [Bind("Id,Name,Description,UIUXDeveloperId,FrontendDeveloperId,BackendDeveloperId,TesterId,TeamLeadId,ReportsToId,ProjectStatus")] Teams teams)
+        {
+            if (id != teams.Id)
+            {
+                return NotFound();
+            }
+
+            Console.WriteLine($"Team Name: {teams.Name}\n" +
+            $"Team Description: {teams.Description}\n" +
+            $"UI/UX Developer Id: {teams.UIUXDeveloperId}\n" +
+            $"Frontend Developer Id: {teams.FrontendDeveloperId}\n" +
+            $"Backend Developer Id: {teams.BackendDeveloperId}\n" +
+            $"Tester Id: {teams.TesterId}\n" +
+            $"Team Lead Id: {teams.TeamLeadId}\n" +
+            $"Reports To Id: {teams.ReportsToId}\n" +
+            $"Project Status: {teams.ProjectStatus}");
+            var archive = new Archives
+            {
+                TeamId = teams.Id,
+                Name = teams.Name,
+                Description = teams.Description,
+                UIUXDeveloperId = teams.UIUXDeveloperId,
+                FrontendDeveloperId = teams.FrontendDeveloperId,
+                BackendDeveloperId = teams.BackendDeveloperId,
+                TesterId = teams.TesterId,
+                TeamLeadId = teams.TeamLeadId,
+                ReportsToId = teams.ReportsToId,
+                ProjectStatus = "Completed",
+                DateArchived = DateTime.Now
+            };
+            
+
+                try
+                {
+                    _context.Archives.Add(archive);
+                    await _context.SaveChangesAsync();
+                    _context.Teams.Remove(teams);
+                    await _context.SaveChangesAsync();
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TeamsExists(teams.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToAction(nameof(Index));
+         
         }
 
         // GET: Teams/Delete/5

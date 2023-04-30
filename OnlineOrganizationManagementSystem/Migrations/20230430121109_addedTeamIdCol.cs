@@ -4,23 +4,23 @@
 
 namespace OnlineOrganizationManagementSystem.Migrations
 {
-    public partial class ArchivalStarted : Migration
+    public partial class addedTeamIdCol : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "ProjectStatus",
-                table: "Teams",
-                type: "nvarchar(max)",
+            migrationBuilder.AddColumn<int>(
+                name: "TeamId",
+                table: "Archives",
+                type: "int",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ProjectStatus",
-                table: "Teams");
+                name: "TeamId",
+                table: "Archives");
         }
     }
 }

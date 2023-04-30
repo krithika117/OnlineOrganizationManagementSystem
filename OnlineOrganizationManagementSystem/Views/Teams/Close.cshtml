@@ -1,0 +1,59 @@
+﻿@model Teams
+
+@{
+    ViewData["Title"] = "close";
+}
+
+<h1>Close</h1>
+
+<h3>Are you sure you want to close this?</h3>
+<div>
+    <form asp-action="Close">
+        <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UIUXDeveloperId" class="control-label"></label>
+        <select asp-for="UIUXDeveloperId" class="form-control dropdown" asp-items="ViewBag.UIUXDeveloperId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="FrontendDeveloperId" class="control-label"></label>
+        <select asp-for="FrontendDeveloperId" class="form-control dropdown" asp-items="ViewBag.FrontendDeveloperId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="BackendDeveloperId" class="control-label"></label>
+        <select asp-for="BackendDeveloperId" class="form-control dropdown" asp-items="ViewBag.BackendDeveloperId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="TesterId" class="control-label"></label>
+        <select asp-for="TesterId" class="form-control dropdown" asp-items="ViewBag.TesterId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="TeamLeadId" class="control-label"></label>
+        <select asp-for="TeamLeadId" class="form-control dropdown" asp-items="ViewBag.TeamLeadId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ReportsToId" class="control-label"></label>
+        <select asp-for="ReportsToId" class="form-control dropdown" asp-items="ViewBag.ReportsToId"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProjectStatus" class="control-label"></label>
+        <select asp-for="ProjectStatus" class="form-control dropdown" asp-items="ViewBag.ProjectStatus">
+            <option value="Onprogress">Onprogress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+
+   
+        <input type="submit" value="Close" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

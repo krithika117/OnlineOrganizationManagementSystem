@@ -5,10 +5,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<p>
-    <a asp-action="Create">+ Create New</a>
-</p>
+<h1>My Teams</h1>
+@if (User.IsInRole("Manager"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">+ Create New</a>
+    </p>
+}
+
 <div class="card-deck">
     @foreach (var item in Model)
     {
@@ -114,10 +118,15 @@
                 </ul>
                 <hr>
                 <div class="card-footer">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </div>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Close" asp-route-id="@item.Id">Close Project</a>
+                    }
+                    <a asp-controller="Tasks" asp-action="Index">View Tasks</a>
+                </div>
             </div>
         </div>
     }
