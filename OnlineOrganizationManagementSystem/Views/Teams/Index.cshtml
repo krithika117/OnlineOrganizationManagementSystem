@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Teams>
-
+﻿@using OnlineOrganizationManagementSystem.Data;
+@model IEnumerable<Teams>
+@inject ApplicationDbContext _context;
 @{
     ViewData["Title"] = "Index";
 }
@@ -19,59 +20,96 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UIUXDeveloperId)
+                UI/UX Developer
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FrontendDeveloperId)
+                Frontend Developer
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BackendDeveloperId)
+                Backend Developer
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TesterId)
+                Tester
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TeamLeadId)
+                Team Lead
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReportsToId)
+                Reports To
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UIUXDeveloperId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FrontendDeveloperId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BackendDeveloperId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TesterId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TeamLeadId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReportsToId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @{
+                        var uiuxDeveloper = await _context.Users.FindAsync(item.UIUXDeveloperId);
+                        if (uiuxDeveloper != null)
+                        {
+                            @uiuxDeveloper.Email
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        var frontendDeveloper = await _context.Users.FindAsync(item.FrontendDeveloperId);
+                        if (frontendDeveloper != null)
+                        {
+                            @frontendDeveloper.Email
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        var backendDeveloper = await _context.Users.FindAsync(item.BackendDeveloperId);
+                        if (backendDeveloper != null)
+                        {
+                            @backendDeveloper.Email
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        var tester = await _context.Users.FindAsync(item.TesterId);
+                        if (tester != null)
+                        {
+                            @tester.Email
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        var teamLead = await _context.Users.FindAsync(item.TeamLeadId);
+                        if (teamLead != null)
+                        {
+                            @teamLead.Email
+                        }
+                    }
+                </td>
+                <td>
+                    @{
+                        var reportsTo = await _context.Users.FindAsync(item.ReportsToId);
+                        if (reportsTo != null)
+                        {
+                            @reportsTo.Email
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
