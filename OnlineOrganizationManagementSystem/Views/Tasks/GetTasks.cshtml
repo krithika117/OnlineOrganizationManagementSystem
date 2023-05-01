@@ -1,81 +1,141 @@
 ﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.Tasks>
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<IdentityUser> UserManager
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssigneeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManagerId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TeamId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AssigneeId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManagerId)
-                </td>
-                <td class="@item.Status">
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DueDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TeamId)
-                </td>
+<div class="row">
+    <div class="col-md-3 kanban-swimlane">
+        <h2>Overdue</h2>
+        
+            @foreach (var task in Model.Where(t => t.Status == "Overdue"))
+            {
+                <div class="card mb-3 shadow border-0 m-1">
+                    <div class="card-body">
+                        <h5 class="card-title">@task.Name</h5>
+                        <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
+                        <div class="d-flex justify-content-end card-footer">
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
+                                <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
+                                <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
 
-                <td>
-                    @if (User.IsInRole("Manager"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                    }
-                    else
-                    {
-                        if (@item.Status == "Assigned" || @item.Status == "Overdue")
+                            }
+                            else
+                            {
+                                <a asp-action="Create" asp-controller="Mails"
+                           asp-route-sender="@User.Identity.Name"
+                           asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
+                           asp-route-subject="Request Review"
+                           asp-route-body="Review for Task @task.Id"
+                           asp-route-taskId="@task.Id"
+                                   class="btn btn-danger">Request Review</a>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+    
+    </div>
+    <div class="col-md-3 kanban-swimlane">
+        <h2>Assigned</h2>
+
+        @foreach (var task in Model.Where(t => t.Status == "Assigned"))
+        {
+            <div class="card mb-3 shadow border-0  m-1">
+                <div class="card-body">
+                    <h5 class="card-title">@task.Name</h5>
+                    <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
+                    <div class="d-flex justify-content-end card-footer">
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+
+                        }
+                        else
                         {
                             <a asp-action="Create" asp-controller="Mails"
-                   asp-route-sender="@User.Identity.Name"
-                   asp-route-receiver="@(await UserManager.FindByIdAsync(item.ManagerId))"
-                   asp-route-subject="Request Review"
-                   asp-route-body="Review for Task @item.Id"
-                   asp-route-taskId="@item.Id"
+                       asp-route-sender="@User.Identity.Name"
+                       asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
+                       asp-route-subject="Request Review"
+                       asp-route-body="Review for Task @task.Id"
+                       asp-route-taskId="@task.Id"
                                class="btn btn-danger">Request Review</a>
+
                         }
-                    }
-                </td>
-            </tr>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+
+    </div>
+    <div class="col-md-3 kanban-swimlane">
+        <h2>Review</h2>
+
+        @foreach (var task in Model.Where(t => t.Status == "Review"))
+        {
+            <div class="card mb-3 shadow border-0 m-1">
+                <div class="card-body">
+                    <h5 class="card-title">@task.Name</h5>
+                    <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
+                    <div class="d-flex justify-content-end card-footer">
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+
+                        }
+                        else
+                        {
+                            <a asp-action="Create" asp-controller="Mails"
+                       asp-route-sender="@User.Identity.Name"
+                       asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
+                       asp-route-subject="Request Review"
+                       asp-route-body="Review for Task @task.Id"
+                       asp-route-taskId="@task.Id"
+                               class="btn btn-danger">Request Review</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-3 kanban-swimlane">
+        <h2>Completed</h2>
+
+        @foreach (var task in Model.Where(t => t.Status == "Completed"))
+        {
+            <div class="card mb-3 shadow border-0 m-1">
+                <div class="card-body">
+                    <h5 class="card-title">@task.Name</h5>
+                    <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
+                    <div class="d-flex justify-content-end card-footer">
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+
+                        }
+                        else
+                        {
+                            <a asp-action="Create" asp-controller="Mails"
+                       asp-route-sender="@User.Identity.Name"
+                       asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
+                       asp-route-subject="Request Review"
+                       asp-route-body="Review for Task @task.Id"
+                       asp-route-taskId="@task.Id"
+                               class="btn btn-danger">Request Review</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    </div>

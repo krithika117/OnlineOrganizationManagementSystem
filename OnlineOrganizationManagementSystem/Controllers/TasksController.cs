@@ -26,6 +26,27 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Tasks
+        
+        // Check if task is overdue
+        
+        
+        public async Task<IActionResult> UpdateTaskStatus()
+        {
+            try
+            {
+                var tasks = _context.Tasks.Where(t => t.DueDate < DateTime.Now && t.Status != "Overdue").ToList();
+                foreach (var task in tasks)
+                {
+                    task.Status = "Overdue";
+                    _context.Tasks.Update(task);
+                }
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch(Exception e){ return BadRequest(); }
+            
+        }
+
         [Authorize]
         
         public async Task<IActionResult> Index()
@@ -57,19 +78,6 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return PartialView("GetTasks", currRetTasks);
         }
 
-        // Check if task is overdue
-        public void UpdateTaskStatus()
-        {
-            var tasks = _context.Tasks.Where(t => t.DueDate < DateTime.Now && t.Status !="Overdue").ToList();
-            foreach(var task in tasks)
-            {
-                task.Status = "Overdue";
-                _context.Tasks.Update(task);
-            }
-            _context.SaveChangesAsync();
-        }
-
-        
 
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -113,23 +121,28 @@ namespace OnlineOrganizationManagementSystem.Controllers
             // Add each assignee to the list
             if (team.UIUXDeveloperId != null)
             {
-                assignees.Add(new SelectListItem { Value = team.UIUXDeveloperId, Text = team.UIUXDeveloperId });
+                var user = _context.Users.FirstOrDefault(u => u.Id == team.UIUXDeveloperId);
+                assignees.Add(new SelectListItem { Value = team.UIUXDeveloperId, Text = user.Email });
             }
             if (team.FrontendDeveloperId != null)
             {
-                assignees.Add(new SelectListItem { Value = team.FrontendDeveloperId, Text = team.FrontendDeveloperId });
+                var user = _context.Users.FirstOrDefault(u => u.Id == team.FrontendDeveloperId);
+                assignees.Add(new SelectListItem { Value = team.FrontendDeveloperId, Text = user.Email });
             }
             if (team.BackendDeveloperId != null)
             {
-                assignees.Add(new SelectListItem { Value = team.BackendDeveloperId, Text = team.BackendDeveloperId });
+                var user = _context.Users.FirstOrDefault(u => u.Id == team.BackendDeveloperId);
+                assignees.Add(new SelectListItem { Value = team.BackendDeveloperId, Text = user.Email });
             }
             if (team.TesterId != null)
             {
-                assignees.Add(new SelectListItem { Value = team.TesterId, Text = team.TesterId });
+                var user = _context.Users.FirstOrDefault(u => u.Id == team.TesterId);
+                assignees.Add(new SelectListItem { Value = team.TesterId, Text = user.Email });
             }
             if (team.TeamLeadId != null)
             {
-                assignees.Add(new SelectListItem { Value = team.TeamLeadId, Text = team.TeamLeadId });
+                var user = _context.Users.FirstOrDefault(u => u.Id == team.TeamLeadId);
+                assignees.Add(new SelectListItem { Value = team.TeamLeadId, Text = user.Email });
             }
 
             return Json(assignees);
@@ -155,6 +168,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // GET: Tasks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
             if (id == null || _context.Tasks == null)
             {
                 return NotFound();
@@ -167,7 +181,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
             }
             ViewData["AssigneeId"] = new SelectList(_context.Users, "Id", "Email", tasks.AssigneeId);
             ViewData["ManagerId"] = new SelectList(_context.Users, "Id", "Email", tasks.ManagerId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name", tasks.TeamId);
+            ViewData["TeamId"] = new SelectList(_context.Teams.Where(t => t.ReportsToId == currentUser.Id), "Id", "Name");
+
             return View(tasks);
         }
 
@@ -184,11 +199,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 return NotFound();
             }
 
-         
+                Console.WriteLine("Edit error");    
                 try
                 {
                     _context.Update(tasks);
                     await _context.SaveChangesAsync();
+                    Console.WriteLine("Edit saved");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
