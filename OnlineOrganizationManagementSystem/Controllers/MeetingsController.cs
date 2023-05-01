@@ -31,12 +31,10 @@ namespace OnlineOrganizationManagementSystem.Controllers
             var currentTeam = await _context.Teams
             .FirstOrDefaultAsync(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id);
 
-            if (currentTeam != null)
-            {
-                var events = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
-                return View(events);
-            }
-            return View();
+            
+            var events = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
+            return View(events);
+          
         }
 
         // GET: Meetings/Details/5

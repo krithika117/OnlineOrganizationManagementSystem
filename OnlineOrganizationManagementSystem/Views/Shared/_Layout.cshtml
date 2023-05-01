@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@using OnlineOrganizationManagementSystem.Data
+@inject ApplicationDbContext _context
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,17 +47,26 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Index">Teams</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Index">Tasks</a>
-                                </li>
+                                @if (_context.Teams
+                                                 .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Index">Tasks</a>
+                                    </li>
+                                }
+                              
                             }
                             @if(User.IsInRole("Manager")){
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Archival">Archives</a>
                         </li>
-                        <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a>
-                        </li>
+                                @if(_context.Teams
+                               .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a>
+                                    </li>
+                                }
                         }}
                     </ul>
                     <partial name="_LoginPartial" />

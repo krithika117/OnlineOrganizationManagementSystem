@@ -6,6 +6,10 @@
 
 <h1>My Archives</h1>
 
+@if(!Model.Any())
+{
+    <p>No archives present</p>
+}
 <div class="card-columns">
     @foreach (var archive in Model)
     {

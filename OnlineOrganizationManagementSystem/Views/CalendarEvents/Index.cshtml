@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @model IEnumerable<OnlineOrganizationManagementSystem.Models.CalendarEvent>
 @inject SignInManager<IdentityUser> SignInManager
-
+@inject UserManager<IdentityUser> UserManager
+@using OnlineOrganizationManagementSystem.Data
+@inject ApplicationDbContext _context
 @{
     ViewData["Title"] = "Index";
 }
@@ -14,8 +16,11 @@
     }  
     @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Manager")))
     {
-        <a asp-controller="Meetings" asp-action="Create" class="btn btn-secondary mb-3">+ Create Meeting</a>
-        
+        @if (_context.Teams
+                     .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
+        {
+            <a asp-controller="Meetings" asp-action="Create" class="btn btn-secondary mb-3">+ Create Meeting</a>
+        }
         
     }  
     <div id='calendar'></div>
