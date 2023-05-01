@@ -14,13 +14,16 @@ Users can create, update, and delete tasks. Tasks can be assigned to team member
 ### Team management: 
 Users can create and delete teams.
 
+### Expense management: 
+Teams can manage expenses of the Team.
+
 ### Meeting management: 
 Users can schedule and manage meetings.
 
 ### Customer support: 
-Users can create customer support tickets and manage them.
+Users can seek customer support to admin.
 
-### Public holidays management: 
+### Public holidays: 
 Users can manage public holidays for the organization.
 
 ### Calendar events view: 
@@ -34,6 +37,9 @@ Managers can manage project archives.
 
 ### Private note taking: 
 Users can take private notes based on priority.
+
+### Mail Enabling:
+Mail will be sent in the event Team Creation, Project Archival and Meeting scheduling.
 
 ## Requirements
 To run this application, you will need:
