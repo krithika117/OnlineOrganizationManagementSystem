@@ -12,7 +12,7 @@ The application currently supports the following features:
 - Creation and deletion of teams
 - Filtering tasks by team
 - Scheduling and management of meetings
-- Customer support ticket creation and management
+- Customer support and management
 - Public holidays management
 - Calendar events scheduling and management
 - User creation and management by administrators
