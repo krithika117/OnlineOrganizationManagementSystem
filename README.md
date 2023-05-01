@@ -5,41 +5,41 @@ This is a web application built with ASP.NET Core MVC, which allows users to man
 ## Features
 The application currently supports the following features:
 
-### User authentication and authorization: 
-- The application uses ASP.NET Identity for user authentication and authorization.
+### 1. User authentication and authorization: 
+The application uses ASP.NET Identity for user authentication and authorization.
 
-### Task management: 
-- Users can create, update, and delete tasks. Tasks can be assigned to team members and can be filtered by team. Users can also request task review from managers.
+### 2. Task management: 
+Users can create, update, and delete tasks. Tasks can be assigned to team members and can be filtered by team. Users can also request task review from managers.
 
-### Team management: 
-- Users can create and delete teams.
+### 3. Team management: 
+Users can create and delete teams.
 
-### Expense management: 
-- Teams can manage expenses of the Team.
+### 4. Expense management: 
+Teams can manage expenses of the project.
 
-### Meeting management: 
-- Users can schedule and manage meetings.
+### 5. Meeting management: 
+Users can schedule and manage meetings.
 
-### Customer support: 
-- Users can seek customer support to admin.
+### 6. Customer support: 
+Users can seek customer support to admin.
 
-### Public holidays: 
-- Users can manage public holidays for the organization.
+### 7. Public holidays: 
+Users can manage public holidays for the organization.
 
-### Calendar events view: 
-- Abstracted view of Public holidays and calendars based on the team.
+### 8. Calendar events view: 
+Abstracted view of Public holidays and calendars based on the team.
 
-### User account management: 
-- Administrators can create and manage user accounts.
+### 9. User account management: 
+Administrators can create and manage user accounts.
 
-### Project archives: 
-- Managers can manage project archives.
+### 10. Project archives: 
+Managers can manage project archives.
 
-### Private note taking: 
-- Users can take private notes based on priority.
+### 11. Private note taking: 
+Users can take private notes based on priority.
 
-### Mail Enabling:
-- Mail will be sent in the event Team Creation, Project Archival and Meeting scheduling.
+### 12. Mail Enabling:
+Mail will be sent in the event Team Creation, Project Archival and Meeting scheduling.
 
 ## Requirements
 To run this application, you will need:
