@@ -30,7 +30,24 @@ body {
     backdrop-filter: blur(10px);
     font-family: 'DM Sans', sans-serif !important;
 }
+.container-local {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70vh;
+}
 
+.heading-local {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 20px;
+}
+
+#quote {
+    text-size: 15px !important
+}
 .Low {
     color: white !important;
     background-color: hsl(174, 100%, 23%, 0.55) !important;

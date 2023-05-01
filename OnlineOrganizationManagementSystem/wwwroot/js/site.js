@@ -2,3 +2,19 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+	const greetings = ['Hello!', 'Aloha!', 'Bonjour!', 'Hola!', 'Ciao!'];
+
+	function changeGreeting() {
+		const index = Math.floor(Math.random() * greetings.length);
+	const greeting = greetings[index];
+	const greetingElement = document.getElementById('greeting');
+	greetingElement.innerText = greeting;
+	greetingElement.classList.add('animate__animated', 'animate__fadeIn');
+		setTimeout(() => {
+		greetingElement.classList.remove('animate__animated', 'animate__fadeIn');
+		}, 1000);
+	}
+
+	changeGreeting();
+	setInterval(changeGreeting, 5000);

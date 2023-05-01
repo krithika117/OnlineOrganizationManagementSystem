@@ -39,6 +39,12 @@
                             <a class="nav-link" asp-area="" asp-controller="Mails" asp-action="Index">Updates</a>
                         </li>
 
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Usermanagement" asp-action="Index">Users</a>
+                                </li>
+                            }
                             @if (!User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
@@ -60,9 +66,9 @@
                               
                             }
                             @if(User.IsInRole("Manager")){
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Archival">Archives</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Archival">Archives</a>
+                            </li>
                                 @if(_context.Teams
                                .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
                                 {
