@@ -5,19 +5,35 @@ This is a web application built with ASP.NET Core MVC, which allows users to man
 ## Features
 The application currently supports the following features:
 
-- User authentication and authorization using ASP.NET Identity
-- Creation, updating, and deletion of tasks
-- Assignment of tasks to team members
-- Requesting task review from managers
-- Creation and deletion of teams
-- Filtering tasks by team
-- Scheduling and management of meetings
-- Customer support and management
-- Public holidays management
-- Calendar events scheduling and management
-- User creation and management by administrators
-- Project archives for managers
-- Private note taking based on priority
+### User authentication and authorization: 
+The application uses ASP.NET Identity for user authentication and authorization.
+
+### Task management: 
+Users can create, update, and delete tasks. Tasks can be assigned to team members and can be filtered by team. Users can also request task review from managers.
+
+### Team management: 
+Users can create and delete teams.
+
+### Meeting management: 
+Users can schedule and manage meetings.
+
+### Customer support: 
+Users can create customer support tickets and manage them.
+
+### Public holidays management: 
+Users can manage public holidays for the organization.
+
+### Calendar events view: 
+Abstracted view of Public holidays and calendars based on the team.
+
+### User account management: 
+Administrators can create and manage user accounts.
+
+### Project archives: 
+Managers can manage project archives.
+
+### Private note taking: 
+Users can take private notes based on priority.
 
 ## Requirements
 To run this application, you will need:
