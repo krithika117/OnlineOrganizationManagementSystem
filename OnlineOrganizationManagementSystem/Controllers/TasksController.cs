@@ -30,7 +30,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         
         public async Task<IActionResult> Index()
         {
-
+            await UpdateTaskStatus();
             var currentUser = await _userManager.GetUserAsync(User);
     
             ViewData["TeamId"] = new SelectList(_context.Teams
@@ -56,6 +56,20 @@ namespace OnlineOrganizationManagementSystem.Controllers
             Console.WriteLine(currRetTasks);
             return PartialView("GetTasks", currRetTasks);
         }
+
+        // Check if task is overdue
+        public void UpdateTaskStatus()
+        {
+            var tasks = _context.Tasks.Where(t => t.DueDate < DateTime.Now && t.Status !="Overdue").ToList();
+            foreach(var task in tasks)
+            {
+                task.Status = "Overdue";
+                _context.Tasks.Update(task);
+            }
+            _context.SaveChangesAsync();
+        }
+
+        
 
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(int? id)

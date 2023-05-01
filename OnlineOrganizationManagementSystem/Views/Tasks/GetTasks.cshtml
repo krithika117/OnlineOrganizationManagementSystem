@@ -63,7 +63,7 @@
                     }
                     else
                     {
-                        if (@item.Status == "Due")
+                        if (@item.Status == "Assigned" || @item.Status == "Overdue")
                         {
                             <a asp-action="Create" asp-controller="Mails"
                    asp-route-sender="@User.Identity.Name"

@@ -42,8 +42,11 @@ body {
     
     color: #e19b0be7 !important;
 }
-.Opened, .Due {
+.Overdue {
     color: indianred !important;
+}
+.Opened, .Assigned {
+    color: dodgerblue !important;
 }
 
 .badge-box{
