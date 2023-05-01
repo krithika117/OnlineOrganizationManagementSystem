@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.Expense>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+
+@if (User.IsInRole("Manager"))
+{
+    
+    <a asp-action="Create" class="btn btn-secondary">+ Create New</a>
+
+}
+
+<label  class="control-label"></label>
+<select id="SelectedTeam"  class="form-control" asp-items="ViewBag.TeamId">
+    <option value="" disabled selected>Select a team</option>
+</select>
+
+<div id="expenses" class="container justify-content-center mt-3">
+   
+    <partial name="ExpensePartial"/>
+    
+</div>
+
+@section Scripts{
+    <script>
+        $('#SelectedTeam').change(function () {
+            $.ajax({
+                url: '/Expenses/ExpensePartial',
+                data: { InTeamId: $('#SelectedTeam').val() },
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function (result) {
+                        console.log(result);
+                    $('#expenses').html(result);
+                }
+            });
+        });
+    </script>
+}
