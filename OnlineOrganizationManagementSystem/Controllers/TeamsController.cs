@@ -317,7 +317,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         public async Task<IActionResult> Archival()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var archives = await _context.Archives.Where(a => a.ReportsToId == userId).ToListAsync();
+            var archives = await _context.Archives.Where(a => a.ReportsToId == userId).OrderByDescending(d => d.DateArchived).ToListAsync();
             return View(archives);
         }
 

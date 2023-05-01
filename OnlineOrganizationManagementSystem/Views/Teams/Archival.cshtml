@@ -1,40 +1,142 @@
-﻿@model IEnumerable<Archives>
-
+﻿@using OnlineOrganizationManagementSystem.Data;
+@model IEnumerable<Archives>
+@inject ApplicationDbContext _context;
 @{
     ViewData["Title"] = "My Archives";
 }
 
-<h1>My Archives</h1>
+<h2 class="fw-bolder my-3">My Archives</h2>
 
-@if(!Model.Any())
+@if (!Model.Any())
 {
     <p>No archives present</p>
 }
-<div class="card-columns">
-    @foreach (var archive in Model)
-    {
-        <div class="card my-5">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <h5 class="card-title">@archive.Name</h5>
-                    </div>
-                    <div class="col-sm-4 text-right">
-                        <div class="badge badge-box text-primary">@archive.ProjectStatus</div>
+@foreach (var item in Model)
+{
+    <div class="card glass shadow border-0 my-2">
+        <div class="card-body">
+            <div class="row mt-2">
+                <div class="col-sm-10">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Description)</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Archived on @Html.DisplayFor(modelItem => item.DateArchived)</h6>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <div class="badge badge-box text-primary">@Html.DisplayFor(modelItem => item.ProjectStatus)</div>
+                </div>
+            </div>
+
+            <hr>
+            <h6 class="card-subtitle mb-2 text-muted">Team Members</h6>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <i class="fas fa-palette fa-3x mb-3"></i>
+                            <h5 class="card-title">UI/UX Developer</h5>
+                            <p class="card-text">
+                                @{
+                                    var uiuxDeveloper = await _context.Users.FindAsync(item.UIUXDeveloperId);
+                                    if (uiuxDeveloper != null)
+                                    {
+                                        @uiuxDeveloper.Email
+                                    }
+                                }
+                            </p>
+                        </div>
                     </div>
                 </div>
-                
-                <p class="card-text">@archive.Description</p>
-                <ul class="list-group list-group-flush glass">
-                    <li class="list-group-item"><span class="font-weight-bold">UI/UX Developer:</span> @archive.UIUXDeveloperId</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Frontend Developer:</span> @archive.FrontendDeveloperId</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Backend Developer:</span> @archive.BackendDeveloperId</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Tester:</span> @archive.TesterId</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Team Lead:</span> @archive.TeamLeadId</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Reports To:</span> @archive.ReportsToId</li>
-                    <li class="list-group-item"><span class="font-weight-bold">Date Archived:</span> @archive.DateArchived.ToString("dd-MM-yyyy")</li>
-                </ul>
+
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <i class="fas fa-code fa-3x mb-3"></i>
+                            <h5 class="card-title">Frontend Developer</h5>
+                            <p class="card-text">
+                                @{
+                                    var frontendDeveloper = await _context.Users.FindAsync(item.FrontendDeveloperId);
+                                    if (frontendDeveloper != null)
+                                    {
+                                        @frontendDeveloper.Email
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <i class="fas fa-server fa-3x mb-3"></i>
+                            <h5 class="card-title">Backend Developer</h5>
+                            <p class="card-text">
+                                @{
+                                    var backendDeveloper = await _context.Users.FindAsync(item.BackendDeveloperId);
+                                    if (backendDeveloper != null)
+                                    {
+                                        @backendDeveloper.Email
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <i class="fas fa-bug fa-3x mb-3"></i>
+                            <h5 class="card-title">Tester</h5>
+                            <p class="card-text">
+                                @{
+                                    var tester = await _context.Users.FindAsync(item.TesterId);
+                                    if (tester != null)
+                                    {
+                                        @tester.Email
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <i class="fas fa-user-tie fa-3x mb-3"></i>
+                            <h5 class="card-title">Team Lead</h5>
+                            <p class="card-text">
+                                @{
+                                    var teamLead = await _context.Users.FindAsync(item.TeamLeadId);
+                                    if (teamLead != null)
+                                    {
+                                        @teamLead.Email
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <i class="fas fa-user-shield fa-3x mb-3"></i>
+                            <h5 class="card-title">Reports To</h5>
+                            <p class="card-text">
+                                @{
+                                    var reportsTo = await _context.Users.FindAsync(item.ReportsToId);
+                                    if (reportsTo != null)
+                                    {
+                                        @reportsTo.Email
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    }
-</div>
+    </div>
+}

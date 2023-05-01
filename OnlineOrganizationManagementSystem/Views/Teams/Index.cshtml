@@ -15,7 +15,9 @@
 
 @if (!Model.Any())
 {
-    <p>No Teams present</p>
+    <div class="glass p-4">
+        <h4 class="text-center ">No Teams yet!</h4>
+    </div>
 }
 <div class="card-deck">
     @foreach (var item in Model)
