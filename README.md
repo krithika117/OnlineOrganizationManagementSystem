@@ -6,40 +6,40 @@ This is a web application built with ASP.NET Core MVC, which allows users to man
 The application currently supports the following features:
 
 ### User authentication and authorization: 
-The application uses ASP.NET Identity for user authentication and authorization.
+- The application uses ASP.NET Identity for user authentication and authorization.
 
 ### Task management: 
-Users can create, update, and delete tasks. Tasks can be assigned to team members and can be filtered by team. Users can also request task review from managers.
+- Users can create, update, and delete tasks. Tasks can be assigned to team members and can be filtered by team. Users can also request task review from managers.
 
 ### Team management: 
-Users can create and delete teams.
+- Users can create and delete teams.
 
 ### Expense management: 
-Teams can manage expenses of the Team.
+- Teams can manage expenses of the Team.
 
 ### Meeting management: 
-Users can schedule and manage meetings.
+- Users can schedule and manage meetings.
 
 ### Customer support: 
-Users can seek customer support to admin.
+- Users can seek customer support to admin.
 
 ### Public holidays: 
-Users can manage public holidays for the organization.
+- Users can manage public holidays for the organization.
 
 ### Calendar events view: 
-Abstracted view of Public holidays and calendars based on the team.
+- Abstracted view of Public holidays and calendars based on the team.
 
 ### User account management: 
-Administrators can create and manage user accounts.
+- Administrators can create and manage user accounts.
 
 ### Project archives: 
-Managers can manage project archives.
+- Managers can manage project archives.
 
 ### Private note taking: 
-Users can take private notes based on priority.
+- Users can take private notes based on priority.
 
 ### Mail Enabling:
-Mail will be sent in the event Team Creation, Project Archival and Meeting scheduling.
+- Mail will be sent in the event Team Creation, Project Archival and Meeting scheduling.
 
 ## Requirements
 To run this application, you will need:
