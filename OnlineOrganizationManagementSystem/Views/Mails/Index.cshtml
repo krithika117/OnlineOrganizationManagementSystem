@@ -4,11 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h2 class="fw-bolder">Messages</h2>
+    @if (User.IsInRole("Manager"))
+    {
+        <a asp-action="Create" class="btn btn-primary shadow ml-auto">+ Create New</a>
+    }
+</div>
 <table class="table glass">
     <thead>
         <tr>

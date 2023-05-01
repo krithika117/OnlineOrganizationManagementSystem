@@ -5,14 +5,15 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>My Tasks</h1>
 
-@if (User.IsInRole("Manager"))
-{
-    
-    <a asp-action="Create" class="btn btn-secondary">+ Create New</a>
+<div class="d-flex justify-content-between align-items-center mt-5 mb-2">
+    <h2 class="fw-bolder">My Tasks</h2>
+    @if (User.IsInRole("Manager"))
+    {
+        <a asp-action="Create" class="btn btn-primary shadow ml-auto">+ Create New</a>
+    }
+</div>
 
-}
 
 <label  class="control-label"></label>
 <select id="SelectedTeam"  class="form-control" asp-items="ViewBag.TeamId">
