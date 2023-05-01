@@ -27,14 +27,34 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
         // GET: Tasks
         [Authorize]
+        
         public async Task<IActionResult> Index()
         {
+
             var currentUser = await _userManager.GetUserAsync(User);
+    
+            ViewData["TeamId"] = new SelectList(_context.Teams
+            .Where(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id), "Id", "Name");
+
             var currUserTasks = await _context.Tasks
-                .Where(n => n.AssigneeId == currentUser.Id || n.ManagerId == currentUser.Id)
-                .ToListAsync();
-            //var applicationDbContext = _context.Tasks.Include(t => t.Assignee).Include(t => t.Manager).Include(t => t.Team);
+                   .Where(n => n.AssigneeId == currentUser.Id || n.ManagerId == currentUser.Id)
+                   .ToListAsync();
+           
+
             return View(currUserTasks);
+        }
+
+        [Authorize]
+        
+        public async Task<IActionResult> GetTasks(int TeamId) {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            var currRetTasks = await _context.Tasks
+                .Where(n => (n.AssigneeId == currentUser.Id || n.ManagerId == currentUser.Id) && n.TeamId == TeamId)
+                .ToListAsync();
+            Console.WriteLine("Tasks retrieved");
+            Console.WriteLine(currRetTasks);
+            return PartialView("GetTasks", currRetTasks);
         }
 
         // GET: Tasks/Details/5
