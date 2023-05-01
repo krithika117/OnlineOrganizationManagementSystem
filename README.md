@@ -21,7 +21,7 @@ The application currently supports the following features:
 - Users can schedule and manage meetings.
 
 ### Customer support: 
-- - Users can seek customer support to admin.
+- Users can seek customer support to admin.
 
 ### Public holidays: 
 - Users can manage public holidays for the organization.
