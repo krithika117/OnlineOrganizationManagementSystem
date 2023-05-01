@@ -1,7 +1,8 @@
 using OnlineOrganizationManagementSystem.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity.UI.Services;
+using OnlineOrganizationManagementSystem.Controllers;
 
 namespace OnlineOrganizationManagementSystem
 {
@@ -16,7 +17,7 @@ namespace OnlineOrganizationManagementSystem
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+            
             builder.Services.AddDefaultIdentity<IdentityUser>()
                             .AddRoles<IdentityRole>()
                             .AddEntityFrameworkStores<ApplicationDbContext>();

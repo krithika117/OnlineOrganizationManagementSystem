@@ -278,3 +278,8 @@ C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManageme
 C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\obj\Debug\net6.0\scopedcss\projectbundle\OnlineOrganizationManagementSystem.bundle.scp.css
+C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\bin\Debug\net6.0\MailKit.dll
+C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\bin\Debug\net6.0\MimeKit.dll
+C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\HP\source\OnlineOrganizationManagementSystem\OnlineOrganizationManagementSystem\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

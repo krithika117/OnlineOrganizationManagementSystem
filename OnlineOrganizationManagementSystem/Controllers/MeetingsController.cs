@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using NuGet.Protocol.Plugins;
 using OnlineOrganizationManagementSystem.Data;
 using OnlineOrganizationManagementSystem.Models;
+using Org.BouncyCastle.Utilities.IO;
 
 namespace OnlineOrganizationManagementSystem.Controllers
 {
@@ -72,10 +76,56 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EventType,Title,Details,TeamId,Date")] Meeting meeting)
         {
+            var team = await _context.Teams.FindAsync(meeting.TeamId);
+
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            // Get the user emails
+            var users = await _context.Users
+                .Where(u => u.Id == team.UIUXDeveloperId
+                         || u.Id == team.FrontendDeveloperId
+                         || u.Id == team.BackendDeveloperId
+                         || u.Id == team.TesterId
+                         || u.Id == team.TeamLeadId
+                         || u.Id == team.ReportsToId)
+                .ToListAsync();
             _context.Add(meeting);
             await _context.SaveChangesAsync();
+           
+
+            foreach (var user in users)
+            {
+                await SendEmailAsync("krithikanithyanandam7@gmail.com", "Meeting Scheduled", $"Your meeting has been scheduled for {meeting.Title} on {meeting.Date} \nReceiver Mail: {user.Email}");
+                
+            }
             return RedirectToAction(nameof(Index));
 
+        }
+
+
+        // Mail server
+        public async Task SendEmailAsync(string recipientEmail, string subject, string messageBody)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("promote.n0replymailer@gmail.com", "promote.n0replymailer@gmail.com"));
+            message.To.Add(new MailboxAddress("Admin", recipientEmail));
+            message.Subject = subject;
+
+            message.Body = new TextPart("plain")
+            {
+                Text = messageBody
+            };
+
+            using (var client = new SmtpClient())
+            {
+                await client.ConnectAsync("smtp.gmail.com", 587, false);
+                await client.AuthenticateAsync("promote.n0replymailer@gmail.com", "ashqtcouelkfiznr");
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
         }
 
         // GET: Meetings/Edit/5
@@ -167,6 +217,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+      
         private bool MeetingExists(int id)
         {
             return (_context.Meetings?.Any(e => e.Id == id)).GetValueOrDefault();

@@ -5,11 +5,15 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineOrganizationManagementSystem.Data;
 using OnlineOrganizationManagementSystem.Models;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 
 namespace OnlineOrganizationManagementSystem.Controllers
 {
@@ -17,11 +21,13 @@ namespace OnlineOrganizationManagementSystem.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IEmailSender _emailSender;
 
-        public TeamsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public TeamsController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
+            _emailSender = emailSender;
         }
 
         // GET: Teams
@@ -80,20 +86,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,UIUXDeveloperId,FrontendDeveloperId,BackendDeveloperId,TesterId,TeamLeadId,ReportsToId,ProjectStatus")] Teams teams)
         {
-            foreach (var entry in ModelState)
-            {
-                var key = entry.Key;
-                var errors = entry.Value.Errors;
-
-                foreach (var error in errors)
-                {
-                    var errorMessage = error.ErrorMessage;
-                    var exception = error.Exception;
-
-                    Console.WriteLine(errorMessage);
-                    Console.WriteLine(exception);
-                }
-            }
+           
 
             Console.WriteLine("Hit");
             if (ModelState.IsValid)
@@ -101,6 +94,23 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 Console.WriteLine("Hit 1");
                 _context.Add(teams);
                 await _context.SaveChangesAsync();
+
+                var UIUXDeveloperMail = await _userManager.FindByIdAsync(teams.UIUXDeveloperId);
+                 var FrontendDeveloperMail = await _userManager.FindByIdAsync(teams.FrontendDeveloperId);
+                 var BackendDeveloperMail = await _userManager.FindByIdAsync(teams.BackendDeveloperId);
+                 var TesterMail = await _userManager.FindByIdAsync(teams.TesterId);
+                 var ReportsToMail = await _userManager.FindByIdAsync(teams.ReportsToId);
+                 var TeamLeadMail = await _userManager.FindByIdAsync(teams.TeamLeadId);
+
+                await SendEmailAsync("krithikanithyanandam7@gmail.com", "You've been added to the Team!", $"You have been added to Team {teams.Name}\nReceiver {UIUXDeveloperMail.Email}");
+                await SendEmailAsync("krithikanithyanandam7@gmail.com", "You've been added to the Team!", $"You have been added to Team {teams.Name}\nReceiver {FrontendDeveloperMail.Email}");
+                await SendEmailAsync("krithikanithyanandam7@gmail.com", "You've been added to the Team!", $"You have been added to Team {teams.Name}\nReceiver {BackendDeveloperMail.Email}");
+                await SendEmailAsync("krithikanithyanandam7@gmail.com", "You've been added to the Team!", $"You have been added to Team {teams.Name}\nReceiver {TesterMail.Email}");
+                await SendEmailAsync("krithikanithyanandam7@gmail.com", "You've been added to the Team!", $"You have been added to Team {teams.Name}\nReceiver {ReportsToMail.Email}");
+                await SendEmailAsync("krithikanithyanandam7@gmail.com", "You've been added to the Team!", $"You have been added to Team {teams.Name}\nReceiver {TeamLeadMail.Email}");
+
+
+                
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BackendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email", teams.BackendDeveloperId);
@@ -236,6 +246,13 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 {
                     _context.Archives.Add(archive);
                     await _context.SaveChangesAsync();
+                    var receiver = await _userManager.FindByIdAsync(teams.ReportsToId);
+
+                    Console.WriteLine(receiver.Email);
+                    //await _emailSender.SendEmailAsync("krithika.23it@licet.ac.in", "Project Archived",
+                    //$"Your project with {teams.Name} has been archived");
+                    await SendEmailAsync("krithikanithyanandam7@gmail.com", "Project Archived", $"Your project with {teams.Name} has been archived\nReceiver Mail: {receiver}");
+
                     _context.Teams.Remove(teams);
                     await _context.SaveChangesAsync();
 
@@ -304,8 +321,30 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View(archives);
         }
 
-       
-        private bool TeamsExists(int id)
+       // Send Mail Function
+      
+
+    public async Task SendEmailAsync(string recipientEmail, string subject, string messageBody)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("promote.n0replymailer@gmail.com", "promote.n0replymailer@gmail.com"));
+            message.To.Add(new MailboxAddress("Admin", recipientEmail));
+            message.Subject = subject;
+
+            message.Body = new TextPart("plain")
+            {
+                Text = messageBody
+            };
+
+            using (var client = new SmtpClient())
+            {
+                    await client.ConnectAsync("smtp.gmail.com", 587, false);
+                    await client.AuthenticateAsync("promote.n0replymailer@gmail.com", "ashqtcouelkfiznr");
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
+            }
+        }
+    private bool TeamsExists(int id)
         {
           return (_context.Teams?.Any(e => e.Id == id)).GetValueOrDefault();
         }
