@@ -19,11 +19,13 @@
         @if (_context.Teams
                      .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
         {
-            <a asp-controller="Meetings" asp-action="Create" class="btn btn-secondary mb-3">+ Create Meeting</a>
+            <a asp-controller="Meetings" asp-action="Create" class="btn btn-secondary glass mb-3">+ Create Meeting</a>
         }
         
     }  
+    <div class="glass container p-5 shadow border-0">
     <div id='calendar'></div>
+    </div>
 </div>
 
 @section scripts {
@@ -41,7 +43,7 @@
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
 
-                    selectable: true,
+                    selectable: false,
                     editable: false,
                     events: [
             @foreach (var item in Model)

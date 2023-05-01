@@ -32,45 +32,45 @@
                      
                         
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CalendarEvents" asp-action="Index">Calendar</a>
+                            <a class="nav-link" asp-area="" asp-controller="CalendarEvents" asp-action="Index">Calendar</a>
                         </li>  
                         
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Mails" asp-action="Index">Messages</a>
+                            <a class="nav-link" asp-area="" asp-controller="Mails" asp-action="Index">Messages</a>
                         </li>
 
                             @if (!User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="Index">Notes</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Notes" asp-action="Index">Notes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Index">Teams</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Index">Teams</a>
                                 </li>
                                 @if (_context.Teams
                                                  .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Tasks" asp-action="Index">Tasks</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Tasks" asp-action="Index">Tasks</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Expenses" asp-action="Index">Expenses</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Expenses" asp-action="Index">Expenses</a>
                                     </li>
                                 }
                               
                             }
                             @if(User.IsInRole("Manager")){
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Teams" asp-action="Archival">Archives</a>
+                            <a class="nav-link" asp-area="" asp-controller="Teams" asp-action="Archival">Archives</a>
                         </li>
                                 @if(_context.Teams
                                .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a>
                                     </li> 
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Expenses" asp-action="Index">Expenses</a>
+                                        <a class="nav-link" asp-area="" asp-controller="Expenses" asp-action="Index">Expenses</a>
                                     </li>
                                 }
                         }}
@@ -86,11 +86,11 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-       @* <div class="container">
+    @* <footer class="border-top footer text-muted">
+       <div class="container">
             &copy; 2023 - AuthWithRolesTest - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>*@
-    </footer>
+        </div>
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -2,21 +2,23 @@
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<IdentityUser> UserManager
 <div class="row">
-    <div class="col-md-3 kanban-swimlane">
-        <h2>Overdue</h2>
+    <div class="col-md-3 kanban-swimlane shadow">
+        <div class="card-header Overdue">
+            <h4 class="m-2">Overdue</h4>
+        </div>
         
             @foreach (var task in Model.Where(t => t.Status == "Overdue"))
             {
-                <div class="card mb-3 shadow border-0 m-1">
+                <div class="card mb-3 border-0 m-1">
                     <div class="card-body">
                         <h5 class="card-title">@task.Name</h5>
-                        <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
-                        <div class="d-flex justify-content-end card-footer">
+                        <p class="card-text">Due Date: @task.DueDate.ToString("dd/MM/yyyy")</p>
+                        <div class="d-flex">
                             @if (User.IsInRole("Manager"))
                             {
-                                <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
-                                <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
-                                <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary mx-1"><i class="fas fa-pencil-alt"></i></a>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary mx-1"><i class="fas fa-info-circle"></i></a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i></a>
 
                             }
                             else
@@ -36,21 +38,23 @@
             }
     
     </div>
-    <div class="col-md-3 kanban-swimlane">
-        <h2>Assigned</h2>
+    <div class="col-md-3 kanban-swimlane shadow">
+        <div class="card-header Assigned">
+            <h4 class="m-2">Assigned</h4>
+        </div>
 
         @foreach (var task in Model.Where(t => t.Status == "Assigned"))
         {
-            <div class="card mb-3 shadow border-0  m-1">
+            <div class="card mb-3 border-0  m-1">
                 <div class="card-body">
                     <h5 class="card-title">@task.Name</h5>
-                    <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
-                    <div class="d-flex justify-content-end card-footer">
+                    <p class="card-text">Due Date: @task.DueDate.ToString("dd/MM/yyyy")</p>
+                    <div class="d-flex">
                         @if (User.IsInRole("Manager"))
                         {
-                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
-                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
-                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary mx-1"><i class="fas fa-pencil-alt"></i></a>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary mx-1"><i class="fas fa-info-circle"></i></a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i></a>
 
                         }
                         else
@@ -70,21 +74,22 @@
         }
 
     </div>
-    <div class="col-md-3 kanban-swimlane">
-        <h2>Review</h2>
-
+    <div class="col-md-3 kanban-swimlane shadow">
+        <div class="card-header Review">
+            <h4 class="m-2">Review</h4>
+        </div>
         @foreach (var task in Model.Where(t => t.Status == "Review"))
         {
-            <div class="card mb-3 shadow border-0 m-1">
+            <div class="card mb-3 border-0 m-1">
                 <div class="card-body">
                     <h5 class="card-title">@task.Name</h5>
-                    <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
-                    <div class="d-flex justify-content-end card-footer">
+                    <p class="card-text">Due Date: @task.DueDate.ToString("dd/MM/yyyy")</p>
+                    <div class="d-flex">
                         @if (User.IsInRole("Manager"))
                         {
-                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
-                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
-                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary mx-1"><i class="fas fa-pencil-alt"></i></a>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary mx-1"><i class="fas fa-info-circle"></i></a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i></a>
 
                         }
                         else
@@ -104,32 +109,35 @@
         }
 
     </div>
-    <div class="col-md-3 kanban-swimlane">
-        <h2>Completed</h2>
+    <div class="col-md-3 kanban-swimlane shadow">
+        
+        <div class="card-header Completed">
+            <h4 class="m-2">Completed</h4>
+        </div>
 
         @foreach (var task in Model.Where(t => t.Status == "Completed"))
         {
-            <div class="card mb-3 shadow border-0 m-1">
+            <div class="card mb-3 border-0 m-1">
                 <div class="card-body">
                     <h5 class="card-title">@task.Name</h5>
-                    <p class="card-text">Due Date: @task.DueDate.ToString("MM/dd/yyyy")</p>
-                    <div class="d-flex justify-content-end card-footer">
+                    <p class="card-text">Due Date: @task.DueDate.ToString("dd/MM/yyyy")</p>
+                    <div class="d-flex">
                         @if (User.IsInRole("Manager"))
                         {
-                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
-                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">Details</a>
-                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary mx-1"><i class="fas fa-pencil-alt"></i></a>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary mx-1"><i class="fas fa-info-circle"></i></a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i></a>
 
                         }
                         else
                         {
                             <a asp-action="Create" asp-controller="Mails"
-                       asp-route-sender="@User.Identity.Name"
-                       asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
-                       asp-route-subject="Request Review"
-                       asp-route-body="Review for Task @task.Id"
-                       asp-route-taskId="@task.Id"
-                               class="btn btn-danger">Request Review</a>
+                           asp-route-sender="@User.Identity.Name"
+                           asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
+                           asp-route-subject="Request Review"
+                           asp-route-body="Review for Task @task.Id"
+                           asp-route-taskId="@task.Id"
+                                   class="btn btn-danger">Request Review</a>
 
                         }
                     </div>
