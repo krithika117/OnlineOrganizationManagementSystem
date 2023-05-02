@@ -19,95 +19,103 @@
     <link rel="stylesheet" href="~/OnlineOrganizationManagementSystem.styles.css" asp-append-version="true" />
 </head>
 <body>
-  @*  <header>*@
-      @*  <nav class="navbar navbar-expand-sm navbar-toggleable-sm glass box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Organize</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon btn btn-primary"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">*@
-                    
-                    <header>
-                        <nav class="glass">
-                    <ul>
-                        @if (SignInManager.IsSignedIn(User))
+    <header>
+        <nav class="glass">
+            <ul>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item">
+                        <i class="bx bxs-calendar-alt"></i>
+                        <span>
+                            <a asp-area="" asp-controller="CalendarEvents"
+                           asp-action="Index">Calendar</a>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <i class="bx bxs-bell"></i>
+                        <span>
+                            <a asp-area="" asp-controller="Mails"
+                           asp-action="Index">Updates</a>
+                        </span>
+                    </li>
+
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <i class="bx bxs-user"></i>
+                            <span>
+                                <a asp-area="" asp-controller="Usermanagement"
+                           asp-action="Index">Users</a>
+                            </span>
+                        </li>
+                    }
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <i class="bx bxs-note"></i>
+                            <span><a asp-area="" asp-controller="Notes" asp-action="Index">Notes</a></span>
+                        </li>
+                        <li class="nav-item">
+                            <i class="bx bxs-group"></i>
+                            <span><a asp-area="" asp-controller="Teams" asp-action="Index">Teams</a></span>
+                        </li>
+                        @if (_context.Teams.Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) ||
+                       t.FrontendDeveloperId ==
+                       UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) ||
+                       t.TesterId ==
+                       UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) ||
+                       t.ReportsToId ==
+                       UserManager.GetUserId(User)))
                         {
                             <li class="nav-item">
-                                <i class="bx bxs-calendar"></i>
-                                <span><a asp-area="" asp-controller="CalendarEvents" asp-action="Index">Calendar</a></span>
+                                <i class="bx bx-task"></i>
+                                <span><a asp-area="" asp-controller="Tasks" asp-action="Index">Tasks</a></span>
                             </li>
-
                             <li class="nav-item">
-                                <i class="bx bxs-dashboard"></i>
-                                <span><a  asp-area="" asp-controller="Mails" asp-action="Index">Updates</a></span>
+                                <i class="bx bxs-dollar-circle"></i>
+                                <span>
+                                    <a asp-area="" asp-controller="Expenses"
+                           asp-action="Index">Expenses</a>
+                                </span>
+                            </li>
+                        }
+                    }
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <li class="nav-item">
+                            <i class="bx bxs-archive"></i>
+                            <span>
+                                <a asp-area="" asp-controller="Teams"
+                           asp-action="Archival">Archives</a>
+                            </span>
+                        </li>
+                        @if (_context.Teams.Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) ||
+                       t.FrontendDeveloperId ==
+                       UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) ||
+                       t.TesterId ==
+                       UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) ||
+                       t.ReportsToId ==
+                       UserManager.GetUserId(User)))
+                        {
+                            <li class="nav-item">
+                                <i class="bx bxs-volume-full"></i>
+                                <span>
+                                    <a asp-area="" asp-controller="Meetings"
+                           asp-action="Index">Meetings</a>
+                                </span>
                             </li>
 
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <i class="bx bxs-user"></i>
-                                    <span><a  asp-area="" asp-controller="Usermanagement" asp-action="Index">Users</a></span>
-                                </li>
-                            }
-                            @if (!User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <i class="bx bxs-note"></i>
-                                    <span><a  asp-area="" asp-controller="Notes" asp-action="Index">Notes</a></span>
-                                </li>
-                                <li class="nav-item">
-                                    <i class="bx bxs-group"></i>
-                                    <span><a  asp-area="" asp-controller="Teams" asp-action="Index">Teams</a></span>
-                                </li>
-                                @if (_context.Teams.Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId ==
-                               UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId ==
-                               UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId ==
-                               UserManager.GetUserId(User)))
-                                {
-                                    <li class="nav-item">
-                                        <i class="bx bxs-task"></i>
-                                        <span><a  asp-area="" asp-controller="Tasks" asp-action="Index">Tasks</a></span>
-                                    </li>
-                                    <li class="nav-item">
-                                        <i class="bx bxs-money"></i>
-                                        <span><a  asp-area="" asp-controller="Expenses" asp-action="Index">Expenses</a></span>
-                                    </li>
-                                }
-                            }
-                            @if (User.IsInRole("Manager"))
-                            {
-                                <li class="nav-item">
-                                    <i class="bx bxs-archive"></i>
-                                    <span><a  asp-area="" asp-controller="Teams" asp-action="Archival">Archives</a></span>
-                                </li>
-                                @if (_context.Teams.Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId ==
-                               UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId ==
-                               UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId ==
-                               UserManager.GetUserId(User)))
-                                {
-                                    <li class="nav-item">
-                                        <i class="bx bxs-group-meeting"></i>
-                                        <span><a  asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a></span>
-                                    </li>
-                                    <li class="nav-item">
-                                        <i class="bx bxs-group-meeting"></i>
-
-                                        <a  asp-area="" asp-controller="Expenses" asp-action="Index">Expenses</a>
-                                    </li>
-                                }
-                            }}
+                        }
+                    }
+                   }
                 <partial name="_LoginPartial" />
-                    </ul>
+            </ul>
 
 
-       </nav>
-    </header>
-        @*        </div>
-            </div>
         </nav>
-    </header>*@
+    </header>
+       
     <div class="container">
         <div class="fade-in">
         <main role="main" class="pb-3">

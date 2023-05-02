@@ -12,11 +12,11 @@ ul {
 }
 /*Navbar styling*/
 nav {
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    bottom: 0;
-    z-index: 100;
+    z-index: 1;
     width: 60px;
     text-align: center;
     overflow: hidden;
@@ -26,31 +26,31 @@ nav {
     -webkit-backdrop-filter: blur(10px);
     border-right: 1px solid rgba(255, 255, 255, .15);
     transition: .4s;
-    height: 100%;
 }
 
+
     nav:hover {
-        z-index:101;
-        width: 300px;
+        z-index:1;
+        width: 250px;
         backdrop-filter: blur(50px);
         -webkit-backdrop-filter: blur(50px);
     }
     nav .nav-item, nav .nav-item a {
         cursor: pointer;
-        padding: 0 25px;
-        height: 80px;
-        line-height: 80px;
+        padding: 0 20px;
+        height: 60px;
+        line-height: 60px;
         text-align: left;
         transition: .4s;
     }
 
         nav .nav-item:hover {
-
+            text-align: left;
             background: rgba(255, 255, 255, .1);
         }
 
         nav .nav-item i {
-            
+            text-align:center;
             font-size:20px;
             color: #dddddd;
             transform: translateY(5px);
@@ -152,6 +152,7 @@ html {
 
 body {
     color: white !important;
+    min-height: 100vh;
     background-color: #111927;
     background-image: radial-gradient(at 47% 33%, hsl(206.09, 92%, 10%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(174.05, 100%, 23%) 0, transparent 55%);
     backdrop-filter: blur(15px);
@@ -162,7 +163,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 70vh;
+    height: 100vh;
 }
 
 .heading-local {
