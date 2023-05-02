@@ -30,7 +30,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">*@
                     
                     <header>
-                        <nav class="glass sticky">
+                        <nav class="glass">
                     <ul>
                         @if (SignInManager.IsSignedIn(User))
                         {
@@ -98,10 +98,11 @@
                                     </li>
                                 }
                             }}
+                <partial name="_LoginPartial" />
                     </ul>
 
 
-    <partial name="_LoginPartial" />    </nav>
+       </nav>
     </header>
         @*        </div>
             </div>
