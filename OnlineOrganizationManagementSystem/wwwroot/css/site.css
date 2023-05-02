@@ -13,7 +13,7 @@ ul {
 /*Navbar styling*/
 nav {
     height: 100%;
-    position: fixed;
+    position: fixed !important;
     top: 0;
     left: 0;
     z-index: 1;
@@ -297,4 +297,20 @@ input, select, option {
     color: white !important;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
 
+::-webkit-scrollbar-track {
+    background: #7ac2be;
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(174.05, 100%, 23%);
+    border-radius: 4px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: hsl(174, 100%, 23%, 0.55);
+    }

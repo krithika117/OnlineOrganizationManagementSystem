@@ -22,6 +22,7 @@
            .Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) || t.FrontendDeveloperId == UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) || t.TesterId == UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) || t.ReportsToId == UserManager.GetUserId(User)))
             {
                 <a asp-controller="Meetings" asp-action="Create" class="btn btn-secondary glass mb-3">+ Create Meeting</a>
+                <a asp-controller="Meetings" asp-action="Index" class="btn btn-secondary glass mb-3">View Meetings</a>
             }
 
         }
