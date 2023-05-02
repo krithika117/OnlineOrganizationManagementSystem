@@ -18,31 +18,64 @@
         <h4 class="text-center ">No Expenses yet!</h4>
     </div>
 }
-else{
-<label  class="control-label"></label>
-<select id="SelectedTeam"  class="form-control" asp-items="ViewBag.TeamId">
-    <option value="" disabled selected>Select a team</option>
-</select>
-
-<div id="expenses" class="container justify-content-center mt-3">
+else
+{
+    <label class="control-label"></label>
+    <select id="SelectedTeam" class="form-control" asp-items="ViewBag.TeamId">
+        <option value="" disabled selected>Select a team</option>
+    </select>
    
-    <partial name="ExpensePartial"/>
-    
-</div>
+    <div id="expenses" class="container justify-content-center mt-3">
+        <partial name="ExpensePartial" />
+    </div>
 
-@section Scripts{
+    
+
+    @section Scripts{
     <script>
         $('#SelectedTeam').change(function () {
             $.ajax({
                 url: '/Expenses/ExpensePartial',
                 data: { InTeamId: $('#SelectedTeam').val() },
-                    type: 'GET',
-                    dataType: 'html',
-                    success: function (result) {
-                        console.log(result);
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    console.log(result);
                     $('#expenses').html(result);
                 }
             });
+        });
+
+        $('#downloadCsvButton').click(function () {
+            // get the table data as an array of arrays
+            var tableData = [];
+            $('#expenses table tr').each(function (rowIndex, row) {
+                var rowData = [];
+                $(row).find('td').each(function (colIndex, col) {
+                    // only add certain columns to the csv
+                    if (colIndex == 0 || colIndex == 1 || colIndex == 2 || colIndex == 3 || colIndex == 4) {
+                        rowData.push($(col).text().trim());
+                    }
+                });
+                if (rowData.length > 0) {
+                    tableData.push(rowData);
+                }
+            });
+
+            // add column headings as the first row
+            tableData.unshift(["Name", "Description", "CreatedAt", "Amount", "TeamId"]);
+
+            // convert the array of arrays to a CSV string
+            var csvContent = "data:text/csv;charset=utf-8,";
+            tableData.forEach(function (rowData) {
+                csvContent += rowData.join(",") + "\r\n";
+            });
+
+            // create a link element and simulate clicking it to download the CSV file
+            var linkElement = document.createElement('a');
+            linkElement.setAttribute('href', encodeURI(csvContent));
+            linkElement.setAttribute('download', 'expenses.csv');
+            linkElement.click();
         });
     </script>
 }

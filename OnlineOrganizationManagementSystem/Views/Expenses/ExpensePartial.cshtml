@@ -34,7 +34,9 @@
             </div>
         </div>
     </div>
-
+<div class="mt-3">
+    <a id="downloadCsvButton" href="#" class="btn btn-primary">Download CSV</a>
+</div>
  <table class="table glass">
     <thead>
         <tr>
@@ -45,7 +47,7 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
+                @Html.DisplayNameFor(model => model.CreatedAt).ToString()
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Amount)
