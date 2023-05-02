@@ -28,7 +28,7 @@
                             <img src="./Assets/teamsynclogo.svg" width="20" />
                         
                         <span class="special-text">
-                           Hello! @User.Identity.Name
+                            <a asp-area="Identity" asp-page="/Account/Manage/Index"> Hello @User.Identity.Name</a>
                         </span>
                     </li> 
                     <li class="nav-item">

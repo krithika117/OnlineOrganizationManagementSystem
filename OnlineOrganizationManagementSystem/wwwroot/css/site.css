@@ -3,12 +3,20 @@
 
 :root {
     --bg-color: #0d1117;
-    --primary-color: #402bc2;
+    --bg-primary: hsl(180, 88%, 16%, 0.86);
+    
 }
 
 ul {
     padding: 0;
     margin: 0;
+}
+
+.bg-primary-glass {
+    background: rgba(255, 255, 255, .06) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 /*Navbar styling*/
 nav {
@@ -57,7 +65,7 @@ nav {
             transition: .4s;
         }
         nav .nav-item .special-text{
-            font-size:small;
+            font-size:x-small;
             margin-left:6px;
         }
         nav:hover .nav-item i {
