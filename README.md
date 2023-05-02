@@ -1,6 +1,6 @@
-# TeamSync
+# TeamSync - Online Organization Management
 
-This is an Online Organization Management web application built with ASP.NET Core MVC, which allows users to manage tasks, teams, meetings, customer support, public holidays, user accounts, project archives, and private notes.
+This is an web application built with ASP.NET Core MVC, which allows users to manage tasks, teams, meetings, customer support, public holidays, user accounts, project archives, and private notes.
 
 ## Features
 The application currently supports the following features:
