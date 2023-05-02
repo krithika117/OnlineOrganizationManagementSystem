@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,16 +23,20 @@ namespace OnlineOrganizationManagementSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
+        
 
         public IActionResult Index()
         {
             return View();
         }
-        
+
+        [Authorize]
         public IActionResult Music()
         {
             return View();
         }
+
+        [Authorize(Roles ="User, Manager")]
         public async Task<IActionResult> Dashboard()
         {
             var currentUser = _userManager.GetUserAsync(User).Result;

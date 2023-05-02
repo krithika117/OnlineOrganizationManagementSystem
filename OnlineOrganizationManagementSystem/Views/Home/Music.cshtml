@@ -68,12 +68,12 @@
                 },
                 success: function (data) {
                     // Display search results
-                    var results = "<ul class='list-group'>";
+                    var results = "<table class='table glass text-white'>";
                     for (var i = 0; i < data.tracks.items.length; i++) {
                         var item = data.tracks.items[i];
-                        results += "<li class='list-group-item'><div class='row'><div class='col-sm-8'>" + item.name + " by " + item.artists[0].name + "</div><div class='col-sm-3 text-right'><a href='" + item.external_urls.spotify + "' target='_blank'>" + "<i class='fa fa-play'></i></a></button></div></div></li>";
+                        results += "<tr><td>" + item.name + " by " + item.artists[0].name + "</td><td class='text-right'><a href='" + item.external_urls.spotify + "' target='_blank'>" + "<i class='fa fa-play'></i></a></td></tr>";
                     }
-                    results += "</ul>";
+                    results += "</table>";
                     $("#results").html(results);
 
                     // Play the full track when play button is clicked
