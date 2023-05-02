@@ -15,7 +15,7 @@ Users can create, update, and delete tasks. Tasks can be assigned to team member
 Users can create and delete teams.
 
 ### 4. Expense management: 
-Teams can manage expenses of the project.
+Teams can manage expenses of the project and download CSV of the expense sheet.
 
 ### 5. Meeting management: 
 Users can schedule and manage meetings.
