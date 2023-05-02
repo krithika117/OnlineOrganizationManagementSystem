@@ -25,6 +25,13 @@
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <li class="nav-item">
+                            <img src="./Assets/teamsynclogo.svg" width="20" />
+                        
+                        <span class="special-text">
+                           Hello! @User.Identity.Name
+                        </span>
+                    </li> 
+                    <li class="nav-item">
                         <i class="bx bxs-calendar-alt"></i>
                         <span>
                             <a asp-area="" asp-controller="CalendarEvents"
@@ -111,8 +118,6 @@
                    }
                 <partial name="_LoginPartial" />
             </ul>
-
-
         </nav>
     </header>
        

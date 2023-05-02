@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "RDyRFTTSb5dAXXS0C6OCGFGunp32PdRzDR1ipXP8ixs=",
+  "Hash": "Op+/zAHAFbNdxA21MvDMvqImMjAG2XSae00/dvUIqqc=",
   "Source": "OnlineOrganizationManagementSystem",
   "BasePath": "_content/OnlineOrganizationManagementSystem",
   "Mode": "Default",
@@ -1069,6 +1069,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\OnlineOrganizationManagementSystem.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\Assets\\teamsynclogo.svg",
+      "SourceId": "OnlineOrganizationManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\",
+      "BasePath": "_content/OnlineOrganizationManagementSystem",
+      "RelativePath": "Assets/teamsynclogo.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\teamsynclogo.svg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\Assets\\teamsyncmain.svg",
+      "SourceId": "OnlineOrganizationManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\",
+      "BasePath": "_content/OnlineOrganizationManagementSystem",
+      "RelativePath": "Assets/teamsyncmain.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\teamsyncmain.svg"
     },
     {
       "Identity": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\css\\site.css",

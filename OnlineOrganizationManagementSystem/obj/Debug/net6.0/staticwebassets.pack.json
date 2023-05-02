@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\OnlineOrganizationManagementSystem.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\Assets\\teamsynclogo.svg",
+      "PackagePath": "staticwebassets\\Assets\\teamsynclogo.svg"
+    },
+    {
+      "Id": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\Assets\\teamsyncmain.svg",
+      "PackagePath": "staticwebassets\\Assets\\teamsyncmain.svg"
+    },
+    {
       "Id": "C:\\Users\\HP\\source\\OnlineOrganizationManagementSystem\\OnlineOrganizationManagementSystem\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

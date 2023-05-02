@@ -14,16 +14,17 @@
 		<div class="heading-local">
 			@if (!SignInManager.IsSignedIn(User))
 			{
-				<h1 id="greeting" >Hello!</h1>
+				<img src="./Assets/teamsyncmain.svg" alt="TeamSync"/>
 				<h6>Log in to view your schedule.</h6>
+				
 			}
 			else
 			{
-				<h1 id="greeting" >Hello!</h1>
-				<h6>What would you like to do today?</h6>
+				<h1><img src="./Assets/teamsyncmain.svg" alt="TeamSync" />  </h1>
+				<h6 id ="greeting">What would you like to do today?</h6>
 			}
 		</div>
 	</div>
-	<script src="~/js/site.js"></script>
+	@*<script src="~/js/site.js"></script>*@
 </body>
 </html>

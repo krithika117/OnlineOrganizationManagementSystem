@@ -5,7 +5,9 @@
     ViewData["Title"] = "My Archives";
 }
 
-<h2 class="fw-bolder my-3">My Archives</h2>
+<div class="d-flex">
+    <h2 class="fw-bolder my-3">My Archives</h2>
+</div>
 
 @if (!Model.Any())
 {
@@ -13,6 +15,7 @@
 }
 @foreach (var item in Model)
 {
+   
     <div class="card glass shadow border-0 my-2">
         <div class="card-body">
             <div class="row mt-2">
@@ -139,4 +142,5 @@
             </div>
         </div>
     </div>
+ 
 }

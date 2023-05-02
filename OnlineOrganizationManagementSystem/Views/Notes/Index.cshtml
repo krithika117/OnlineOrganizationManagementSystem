@@ -4,9 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="d-flex justify-content-between align-items-center my-4">
-    <h1>Notes</h1>
-    <a asp-action="Create" class="btn btn-primary">+ Create New</a>
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="fw-bolder my-4">
+        Notes</h2>
+        <a asp-action="Create" class="btn btn-primary mt-4">+ Create New</a>
 
 </div>
 @if (!Model.Any())

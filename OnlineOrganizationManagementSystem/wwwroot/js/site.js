@@ -9,7 +9,7 @@ window.onload = function () {
 }
 // Write your JavaScript code.
 
-	const greetings = ['Hello!', 'Aloha!', 'Bonjour!', 'Hola!', 'Ciao!'];
+	const greetings = ['Hello!', 'Aloha!', 'Bonjour!', 'Hola!', 'Ciao!', 'What would you like to do today?'];
 
 	function changeGreeting() {
 		const index = Math.floor(Math.random() * greetings.length);
