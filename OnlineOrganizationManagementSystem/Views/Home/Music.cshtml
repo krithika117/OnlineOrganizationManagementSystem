@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Spotify Search";
+}
+
+
+
+<div class="row justify-content-center">
+    
+    <div class="col-sm-12 my-5">
+        <h2>Search for a Song</h2>
+        <form id="searchForm">
+            <div class="input-group">
+                <input type="text" class="form-control" id="searchInput" placeholder="Enter song name">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br>
+
+<div id="results">
+    <!-- Search results will be displayed here -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var access_token = null;
+        var audio = null; // Declare the Audio object outside of the event handlers
+
+        function refreshAccessToken() {
+            $.ajax({
+                url: "https://accounts.spotify.com/api/token",
+                type: "POST",
+                data: {
+                    grant_type: "client_credentials"
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Basic " + btoa("ec8839eb5aa140438dcabd08d4f35c2c:2a0abd7511694c72a4387ba5156f6eb2"));
+                },
+                success: function (response) {
+                    access_token = response.access_token;
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        }
+
+        // Call refreshAccessToken() to obtain a valid access token
+        refreshAccessToken();
+
+        // Submit search form
+        $("#searchForm").submit(function (e) {
+            e.preventDefault();
+
+            // Get search query
+            var query = $("#searchInput").val();
+
+            // Make API request to Spotify
+            $.ajax({
+                url: "https://api.spotify.com/v1/search?q=" + query + "&type=track",
+                headers: {
+                    "Authorization": "Bearer " + access_token
+                },
+                success: function (data) {
+                    // Display search results
+                    var results = "<ul class='list-group'>";
+                    for (var i = 0; i < data.tracks.items.length; i++) {
+                        var item = data.tracks.items[i];
+                        results += "<li class='list-group-item'><div class='row'><div class='col-sm-8'>" + item.name + " by " + item.artists[0].name + "</div><div class='col-sm-3 text-right'><a href='" + item.external_urls.spotify + "' target='_blank'>" + "<i class='fa fa-play'></i></a></button></div></div></li>";
+                    }
+                    results += "</ul>";
+                    $("#results").html(results);
+
+                    // Play the full track when play button is clicked
+                    $(".btn-success").click(function () {
+                        var trackUri = $(this).data("track-uri");
+                        if (audio) {
+                            audio.pause(); // Pause the currently playing track
+                        }
+                        audio = new Audio(); // Create a new Audio object
+                        $.ajax({
+                            url: "https://api.spotify.com/v1/tracks/" + trackUri,
+                            headers: {
+                                "Authorization": "Bearer " + access_token
+                            },
+                            success: function (data) {
+                                audio.src = data.preview_url;
+                                audio.play();
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("Error: " + error);
+                            }
+                        });
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        });
+
+    });
+</script>

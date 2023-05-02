@@ -27,6 +27,11 @@ namespace OnlineOrganizationManagementSystem.Controllers
         {
             return View();
         }
+        
+        public IActionResult Music()
+        {
+            return View();
+        }
         public async Task<IActionResult> Dashboard()
         {
             var currentUser = _userManager.GetUserAsync(User).Result;
