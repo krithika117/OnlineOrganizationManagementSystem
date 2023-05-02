@@ -1,0 +1,64 @@
+﻿@model OnlineOrganizationManagementSystem.Models.ViewModels.DashboardViewModel
+
+<h1>Dashboard</h1>
+<h2>Tasks</h2>
+@if (Model.Tasks.Count == 0)
+{
+    <p>No meetings scheduled in the next 5 days.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Title</th>
+                <th>Details</th>
+                <th>Date</th>
+                <th>Team Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meeting in Model.Tasks)
+            {
+                <tr>
+                    <td>@meeting.Name</td>
+                    <td>@meeting.Status</td>
+                    <td>@meeting.DueDate.ToShortDateString()</td>
+                    <td>@meeting.TeamId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+<h2>Meetings</h2>
+@if (Model.Meetings.Count == 0)
+{
+    <p>No meetings scheduled in the next 5 days.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Event Type</th>
+                <th>Title</th>
+                <th>Details</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meeting in Model.Meetings)
+            {
+                <tr>
+                    <td>@meeting.EventType</td>
+                    <td>@meeting.Title</td>
+                    <td>@meeting.Details</td>
+                    <td>@meeting.Date.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
