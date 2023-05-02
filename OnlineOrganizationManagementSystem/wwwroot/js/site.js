@@ -1,6 +1,12 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+window.onload = function () {
+	var fadeInElements = document.querySelectorAll('.fade-in');
+	for (var i = 0; i < fadeInElements.length; i++) {
+		fadeInElements[i].classList.add('show');
+	}
+}
 // Write your JavaScript code.
 
 	const greetings = ['Hello!', 'Aloha!', 'Bonjour!', 'Hola!', 'Ciao!'];
@@ -18,3 +24,6 @@
 
 	changeGreeting();
 	setInterval(changeGreeting, 5000);
+
+
+

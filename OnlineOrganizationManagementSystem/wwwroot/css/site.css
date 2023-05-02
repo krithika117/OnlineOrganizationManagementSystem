@@ -6,12 +6,139 @@
     --primary-color: #402bc2;
 }
 
-html {
-    font-size: 14px;
+ul {
+    padding: 0;
+    margin: 0;
+}
+/*Navbar styling*/
+nav {
+    position: fixed;
+    top: 0;
+    left:0;
+    bottom:0;
+    z-index:100;
+    width: 60px;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .06);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, .15);
+    transition: .4s;
 }
 
+    nav:hover {
+        z-index:101;
+        width: 300px;
+        backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
+    }
+    nav .nav-item, nav .nav-item a {
+        cursor: pointer;
+        padding: 0 25px;
+        height: 80px;
+        line-height: 80px;
+        text-align: left;
+        transition: .4s;
+    }
+
+        nav .nav-item:hover {
+
+            background: rgba(255, 255, 255, .1);
+        }
+
+        nav .nav-item i {
+            
+            font-size:20px;
+            color: #dddddd;
+            transform: translateY(5px);
+            transition: .4s;
+        }
+
+    nav:hover .nav-item i {
+        color: #ffffff;
+    }
+
+    nav .nav-item span {
+        color: #ffffff;
+        font-size: 18px;
+        
+        opacity: 0;
+    }
+
+    nav:hover .nav-item span {
+        opacity: 1;
+        transition: .4s;
+        transition-delay: .2s;
+    }
+    nav .nav-list-bottom {
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+    }
+/*
+    nav .nav-list-top,
+   
+
+    nav .nav-list-top {
+        top: 32%;
+    }
+
+   
+
+    nav .nav-brand img {
+        width: 50px;
+        border-radius: 50%;
+        margin-top: 15px;
+        transition: .4s;
+    }
+
+    nav:hover .nav-brand img {
+        width: 120px;
+        margin-top: 30px;
+    }
+
+    nav .nav-brand .info {
+        text-align: center;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    nav:hover .nav-brand .info {
+        opacity: 1;
+        transition: .4s;
+        transition-delay: .2s;
+    }
+
+    nav .nav-brand h2 {
+        color: #ffffff;
+        font-size: 30px;
+    }
+
+    nav .nav-brand p {
+        color: #f1f1f1;
+        font-size: 14px;
+    }
 
 
+*/
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+    .fade-in.show {
+        opacity: 1;
+    }
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -27,8 +154,9 @@ body {
     color: white !important;
     background-color: #111927;
     background-image: radial-gradient(at 47% 33%, hsl(206.09, 92%, 10%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(174.05, 100%, 23%) 0, transparent 55%);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     font-family: 'DM Sans', sans-serif !important;
+    
 }
 .container-local {
     display: flex;
@@ -102,7 +230,7 @@ a {
     text-decoration:none;
     color:white!important;
 }
-
+/*
 .navbar {
     background-color: var(--bg-color) !important;
     
@@ -110,7 +238,7 @@ a {
 
 .nav-link {
     color: white !important;
-}
+}*/
 
 .glass, .list-group-item, .card {
     backdrop-filter: blur(16px) saturate(180%);
@@ -164,4 +292,5 @@ input, select, option {
     border: 1px solid rgba(255, 255, 255, 0.125);
     color: white !important;
 }
+
 
