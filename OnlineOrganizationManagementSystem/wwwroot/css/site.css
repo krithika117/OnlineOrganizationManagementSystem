@@ -46,8 +46,8 @@ nav {
     nav .nav-item, nav .nav-item a {
         cursor: pointer;
         padding: 0 20px;
-        height: 60px;
-        line-height: 60px;
+        height: 50px;
+        line-height: 50px;
         text-align: left;
         transition: .4s;
     }

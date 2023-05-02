@@ -2,7 +2,10 @@
 
 <div class="container justify-content-center">
 
-    <h1 class="text-white mt-3">Dashboard</h1>
+    <div class="row">
+    <h1 class="text-white mt-5">Dashboard</h1>
+    <h6 id="greeting">Hello!</h6>
+    </div>
     <div class="row my-4">
 
         <div class="card bg-primary-glass text-white m-2">
@@ -26,6 +29,7 @@
                                 @*<p>@task.TeamId</p>*@
                             </div>
                         }
+                        <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary shadow ml-auto mt-4">View Tasks</a>
                     }
 
                 </div>
@@ -55,6 +59,7 @@
                                 <h3>@meeting.Date.ToString()</h3>
                             </div>
                         }
+                        <a asp-controller="CalendarEvent" asp-action="Index" class="btn btn-primary shadow ml-auto mt-4">View Schedule</a>
                     }
 
                 </div>
@@ -73,8 +78,8 @@
                         <li><i class="fa fas fa-spa"></i>&nbsp;&nbsp;&nbsp;Stretch or do some light exercises</li>
                         <li><i class="fa fas fa-mug-hot"></i>&nbsp;&nbsp;&nbsp;Drink some water or tea</li>
                         <li><i class="fa fas fa-music"></i>&nbsp;&nbsp;&nbsp;Listen to calming music</li>
-                    </ul> 
-                   
+                    </ul>
+                    <a asp-action="Music" class="btn btn-primary shadow ml-auto mt-4">Listen to some music</a>
 
                 </div>
             </div>
