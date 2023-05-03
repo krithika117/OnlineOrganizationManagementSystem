@@ -1,8 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> UserManager
 
+@inject UserManager<IdentityUser> userManager
+@inject RoleManager<IdentityRole> roleManager
 
+@{
+var managerRole = await roleManager.FindByNameAsync("Manager");
+var managerCount = await userManager.GetUsersInRoleAsync(managerRole.Name);
 
+var userRole = await roleManager.FindByNameAsync("User");
+var userCount = await userManager.GetUsersInRoleAsync(userRole.Name);
+}
 <div class="d-flex justify-content-between align-items-center">
     <h2 class="fw-bolder my-4">Users</h2>
     @if (User.IsInRole("Admin"))
@@ -12,6 +19,47 @@
 </div>
 
 
+@if (managerCount.Count < 0 && userCount.Count < 0)
+{
+    <div class="glass p-4">
+        <h4 class="text-center ">No Users yet!</h4>
+    </div>
+}
+else
+{
+    
+
+    <div class="row my-4">
+        <div class="col-md-6">
+            <div class="card bg-primary-glass text-white">
+                <div class="card-body m-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Total Managers</h5>
+                        <i class="fas fa-user-tie fa-2x"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <p class="card-text mb-0 display-4 fw-bolder">@managerCount.Count</p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-primary-glass text-white">
+                <div class="card-body m-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Total Number of Users</h5>
+                        <i class="fas fa-user fa-2x"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <p class="card-text mb-0 display-4 fw-bolder">@userCount.Count</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <table class="table glass shadow">
     <thead>
         <tr>
@@ -21,7 +69,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in UserManager.Users)
+        @foreach (var user in userManager.Users)
         {
             <tr>
                 <td>@user.Id</td>
@@ -31,3 +79,4 @@
         }
     </tbody>
 </table>
+}
