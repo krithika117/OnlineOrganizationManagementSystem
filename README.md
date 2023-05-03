@@ -1,53 +1,52 @@
 # TeamSync - Online Organization Management
 
-This is an web application built with ASP.NET Core MVC, which allows users to manage tasks, teams, meetings, customer support, public holidays, user accounts, project archives, and private notes.
+TeamSync is a web application built with ASP.NET Core MVC that allows users to manage tasks, teams, meetings, customer support, public holidays, user accounts, project archives, and private notes.
 
 ## Features
-The application currently supports the following features:
 
-### 1. User authentication and authorization: 
+### User Authentication and Authorization
 The application uses ASP.NET Identity for user authentication and authorization.
 
-### 2. Task management: 
+### Task Management
 Users can create, update, and delete tasks. Tasks can be assigned to team members and can be filtered by team. Users can also request task review from managers.
 
-### 3. Team management: 
+### Team Management
 Users can create and delete teams.
 
-### 4. Expense management: 
+### Expense Management
 Teams can manage expenses of the project and download CSV of the expense sheet.
 
-### 5. Meeting management: 
+### Meeting Management
 Users can schedule and manage meetings.
 
-### 6. Customer support: 
-Users can seek customer support to admin.
+### Customer Support
+Users can seek customer support from admin.
 
-### 7. Public holidays: 
+### Public Holidays
 Users can manage public holidays for the organization.
 
-### 8. Calendar events view: 
-Abstracted view of Public holidays and calendars based on the team.
+### Calendar Events View
+Abstracted view of public holidays and calendars based on the team.
 
-### 9. User account management: 
+### User Account Management
 Administrators can create and manage user accounts.
 
-### 10. Project archives: 
+### Project Archives
 Managers can manage project archives.
 
-### 11. Private note taking: 
+### Private Note Taking
 Users can take private notes based on priority.
 
-### 12. Mail Enabling:
-Mail will be sent in the event Team Creation, Project Archival and Meeting scheduling.
+### Mail Enabling
+Mail will be sent in the event of team creation, project archival, and meeting scheduling.
 
-### 13. Dashboard:
-Dashboard displaying tasks and meeting nearing the deadline.
+### Dashboard
+Displays tasks and meetings nearing the deadline.
 
-### 14. Spotify API:
+### Spotify API
 Users can listen to music from time to time for relaxation.
 
-## Technology used:
+## Technology Used
 - HTML, CSS, JS
 - Bootstrap, AJAX/jQuery
 - FullCalendar.io, Google Fonts
@@ -55,3 +54,6 @@ Users can listen to music from time to time for relaxation.
 - ASP.NET MVC
 - SQL Server
 - Amazon Relational Database System (RDS)
+
+## Conclusion
+TeamSync provides a comprehensive set of tools for managing an organization's daily activities. From task and team management to customer support and project archival, it provides everything needed to manage a modern organization. With user authentication and authorization, and user account management, it provides a secure and efficient way to manage the organization's resources. Its integration with Amazon RDS provides scalable, reliable, and cost-effective database storage for the organization's data. 
