@@ -27,8 +27,6 @@ var userCount = await userManager.GetUsersInRoleAsync(userRole.Name);
 }
 else
 {
-    
-
     <div class="row my-4">
         <div class="col-md-6">
             <div class="card bg-primary-glass text-white">
@@ -65,7 +63,8 @@ else
         <tr>
             <th>User ID</th>
             <th>Email</th>
-         
+@*            <th>Password</th>
+*@         
         </tr>
     </thead>
     <tbody>
@@ -74,6 +73,7 @@ else
             <tr>
                 <td>@user.Id</td>
                 <td>@user.Email</td>
+                @*<td>@user.PasswordHash</td>*@
          
             </tr>
         }

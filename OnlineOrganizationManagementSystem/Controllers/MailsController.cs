@@ -28,7 +28,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
             return _context.Mail != null ?
-                          View(await _context.Mail.Where(n => n.SenderMail == currentUser.Email || n.ReceiverMail == currentUser.Email).OrderByDescending(d => d.DateCreated).ToListAsync()) :
+                          View(await _context.Mail.Where(n => (n.SenderMail == currentUser.UserName) || (n.ReceiverMail == currentUser.UserName)).OrderByDescending(d => d.DateCreated).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Mail'  is null.");
         }
 
@@ -99,7 +99,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         
     
 
-        [Authorize(Roles ="Admin, Manager")]
+        [Authorize(Roles ="Admin, Manager, User")]
         // GET: Mails/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -119,7 +119,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Mails/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager, User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,SenderMail,ReceiverMail,Subject,Body,DateCreated,Status")] Messages mail)

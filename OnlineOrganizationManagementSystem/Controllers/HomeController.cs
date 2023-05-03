@@ -36,28 +36,39 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View();
         }
 
-        [Authorize(Roles ="User, Manager")]
+        [Authorize(Roles = "User, Manager")]
         public async Task<IActionResult> Dashboard()
         {
             var currentUser = _userManager.GetUserAsync(User).Result;
 
             // get tasks assigned to the user due within the next 5 days
-            var tasks = await _context.Tasks.Where(t => (t.AssigneeId == currentUser.Id && t.DueDate <= DateTime.Now.AddDays(5))||(t.ManagerId == currentUser.Id && t.DueDate <= DateTime.Now.AddDays(5))).ToListAsync();
+            var tasks = await _context.Tasks.Where(t => (t.AssigneeId == currentUser.Id && t.DueDate <= DateTime.Now.AddDays(5)) || (t.ManagerId == currentUser.Id && t.DueDate <= DateTime.Now.AddDays(5))).ToListAsync();
 
             // get meetings scheduled for the team the user is a member of within the next 5 days
             var currentTeam = await _context.Teams
            .FirstOrDefaultAsync(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id);
 
-            var meetings = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id && m.Date <= DateTime.Now.AddDays(5)).ToListAsync();
-
-            // create a view model with the tasks and meetings
-            var model = new DashboardViewModel
+            if (currentTeam != null)
             {
-                Tasks = tasks,
-                Meetings = meetings
-            };
+                var meetings = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id && m.Date <= DateTime.Now.AddDays(5)).ToListAsync();
+                var model = new DashboardViewModel
+                {
+                    Tasks = tasks,
+                    Meetings = meetings
+                };
+                return View(model);
+            }
+            else
+            {
+                // create a view model with the tasks and meetings
+                var model = new DashboardViewModel
+                {
+                    Tasks = tasks
+                    //Meetings = null
+                };
 
-            return View(model);
+                return View(model);
+            }
         }
 
             public IActionResult Privacy()
