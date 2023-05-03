@@ -6,46 +6,46 @@ TeamSync is a web application built with ASP.NET Core MVC that allows users to m
 
 ## Modules
 
-### User Authentication and Authorization
+### 1. User Authentication and Authorization
 The application uses ASP.NET Identity for user authentication and authorization.
 
-### Task Management
+### 2. Task Management
 Users can create, update, and delete tasks. Tasks can be assigned to team members and can be filtered by team. Users can also request task review from managers.
 
-### Team Management
+### 3. Team Management
 Users can create and delete teams.
 
-### Expense Management
+### 4. Expense Management
 Teams can manage expenses of the project and download CSV of the expense sheet.
 
-### Meeting Management
+### 5. Meeting Management
 Users can schedule and manage meetings.
 
-### Customer Support
+### 6. Customer Support
 Users can seek customer support from admin.
 
-### Public Holidays
+### 7. Public Holidays
 Users can manage public holidays for the organization.
 
-### Calendar Events View
+### 8. Calendar Events View
 Abstracted view of public holidays and calendars based on the team.
 
-### User Account Management
+### 9. User Account Management
 Administrators can create and manage user accounts.
 
-### Project Archives
+### 10. Project Archives
 Managers can add completed projects to archives.
 
-### Private Note Taking
+### 11. Private Note Taking
 Users can take private notes based on priority.
 
-### Mail Enabling
+### 12. Mail Enabling
 Mail will be sent in the event of team creation, project archival, and meeting scheduling.
 
-### Dashboard
+### 13. Dashboard
 Displays tasks and meetings nearing the deadline.
 
-### Spotify API
+### 14. Spotify API
 Users can listen to music from time to time for relaxation.
 
 ## Technology Used
