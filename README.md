@@ -41,6 +41,9 @@ Users can take private notes based on priority.
 ### 12. Mail Enabling:
 Mail will be sent in the event Team Creation, Project Archival and Meeting scheduling.
 
+### 13. Dashboard:
+Dashboard displaying tasks and meeting nearing the deadline.
+
 ## Requirements
 To run this application, you will need:
 
