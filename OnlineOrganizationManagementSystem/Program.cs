@@ -13,9 +13,12 @@ namespace OnlineOrganizationManagementSystem
             var builder = WebApplication.CreateBuilder(args);
            
         // Add services to the container.
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        var connectionString = builder.Configuration.GetConnectionString("AWSDefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            Console.WriteLine("Connected to AWS");
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             
             builder.Services.AddDefaultIdentity<IdentityUser>()
@@ -54,6 +57,7 @@ namespace OnlineOrganizationManagementSystem
             // Seeding Roles
             using (var scope = app.Services.CreateScope())
             {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var roles = new[] { "Admin", "Manager", "User" };
                 foreach (var role in roles)
@@ -61,6 +65,24 @@ namespace OnlineOrganizationManagementSystem
                     if (!await roleManager.RoleExistsAsync(role))
                         await roleManager.CreateAsync(new IdentityRole(role));
 
+                }
+                //Admin seeding
+                var adminEmail = "admin@gmail.com";
+                var adminPassword = "Password@123";
+                var adminUser = await userManager.FindByEmailAsync(adminEmail);
+                if (adminUser == null)
+                {
+                    var user = new IdentityUser
+                    {
+                        UserName = adminEmail,
+                        Email = adminEmail
+                    };
+
+                    var result = await userManager.CreateAsync(user, adminPassword);
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(user, "Admin");
+                    }
                 }
             }
          
