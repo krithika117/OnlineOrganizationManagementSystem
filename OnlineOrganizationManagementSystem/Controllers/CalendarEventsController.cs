@@ -19,6 +19,13 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: CalendarEvents
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EventTable()
+        {
+            var holidays = await _context.CalendarEvent.ToListAsync();
+            return View(holidays);
+        }
+
         [Authorize(Roles = "Admin, User, Manager")]
         public async Task<IActionResult> Index()
         {

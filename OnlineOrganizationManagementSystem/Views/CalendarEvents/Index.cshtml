@@ -7,13 +7,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class="container">
+
    
     <div class="glass container p-5 shadow border-0">
         @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Admin")))
         {
 
-            <a asp-action="Create" class="btn btn-secondary mb-3">+ Create Event</a>
+            <a asp-action="EventTable" class="btn btn-secondary mb-3">Event Controls</a>
 
         }
         @if ((SignInManager.IsSignedIn(User) && User.IsInRole("Manager")))
@@ -28,7 +28,7 @@
         }
         <div id='calendar'></div>
     </div>
-</div>
+
 
 @section scripts {
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
@@ -45,7 +45,7 @@
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
 
-                    selectable: false,
+                    selectable: true,
                     editable: false,
                     events: [
             @foreach (var item in Model)
@@ -71,7 +71,7 @@
                         modal.classList.add('modal');
 
                         // add the modal content
-                        modal.innerHTML = '<div class="modal-content">' +
+                        modal.innerHTML = '<div class="modal-content glass">' +
                             '<h3>Actions for ' + info.event.title + '</h3>' +
                             '<div class="d-flex justify-content-center m-2">' +
                             '<a href="' + info.event.extendedProps.editUrl + '" class="btn btn-primary mx-2">Edit</a>' +

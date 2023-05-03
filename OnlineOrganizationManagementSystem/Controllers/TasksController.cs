@@ -26,21 +26,20 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Tasks
-        
-        // Check if task is overdue
-        
-        
-        public async Task<IActionResult> UpdateTaskStatus()
+        // Check if task is overdue        
+        public IActionResult UpdateTaskStatus()
         {
             try
             {
-                var tasks = _context.Tasks.Where(t => t.DueDate < DateTime.Now && t.Status != "Overdue").ToList();
+                var tasks = _context.Tasks.Where(t => t.DueDate <= DateTime.Now && t.Status != "Overdue").ToList();
+  
                 foreach (var task in tasks)
                 {
                     task.Status = "Overdue";
                     _context.Tasks.Update(task);
                 }
-                await _context.SaveChangesAsync();
+               
+                _context.SaveChanges();
                 return Ok();
             }
             catch(Exception e){ return BadRequest(); }
@@ -51,12 +50,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
         
         public async Task<IActionResult> Index()
         {
-            await UpdateTaskStatus();
+            UpdateTaskStatus();
             var currentUser = await _userManager.GetUserAsync(User);
     
             ViewData["TeamId"] = new SelectList(_context.Teams
             .Where(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id), "Id", "Name");
-
+            
             var currUserTasks = await _context.Tasks
                    .Where(n => n.AssigneeId == currentUser.Id || n.ManagerId == currentUser.Id)
                    .ToListAsync();
@@ -77,7 +76,6 @@ namespace OnlineOrganizationManagementSystem.Controllers
             Console.WriteLine(currRetTasks);
             return PartialView("GetTasks", currRetTasks);
         }
-
 
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(int? id)

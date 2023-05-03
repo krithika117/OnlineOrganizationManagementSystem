@@ -56,6 +56,13 @@
                            asp-action="Index">Users</a>
                             </span>
                         </li>
+                        <li class="nav-item">
+                            <i class="bx bx-bookmarks"></i>
+                            <span>
+                                <a asp-area="" asp-controller="CalendarEvents"
+                           asp-action="EventTable">Events</a>
+                            </span>
+                        </li>
                     }
                     @if (!User.IsInRole("Admin"))
                     {

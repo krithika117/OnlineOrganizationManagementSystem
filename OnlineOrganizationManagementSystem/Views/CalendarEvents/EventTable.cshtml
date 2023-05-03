@@ -1,0 +1,34 @@
+﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.CalendarEvent>
+
+@if (!Model.Any())
+{
+    <div class=" bg-primary-glass p-4">
+        <h4 class="text-center ">No Events yet!</h4>
+    </div>
+
+}
+<div class="d-flex justify-content-between align-items-center">
+    <h2 class="fw-bolder my-4">
+        Events
+    </h2>
+    <a asp-action="Create" class="btn btn-primary mt-4">+ Create New</a>
+
+</div>
+<div class="row my-6">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card bg-primary-glass">
+                <div class="card-header">
+                    <h5 class="card-title mt-2">@Html.DisplayFor(modelItem => item.Title)</h5>
+                
+                    @Html.DisplayFor(modelItem => item.Date)
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary float-right"><i class="fas fa-pencil-alt"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger float-right mr-2"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
