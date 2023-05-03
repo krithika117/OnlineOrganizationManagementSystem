@@ -47,6 +47,15 @@ Dashboard displaying tasks and meeting nearing the deadline.
 ### 14. Spotify API:
 Users can listen to music from time to time for relaxation.
 
+## Technology used:
+- HTML, CSS, JS
+- Bootstrap, AJAX/jQuery
+- FullCalendar.io, Google Fonts
+- Spotify API
+- ASP.NET MVC
+- SQL Server
+- Amazon Relational Database System (RDS)
+
 ## Requirements
 To run this application, you will need:
 
