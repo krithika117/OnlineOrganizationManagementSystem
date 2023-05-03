@@ -44,6 +44,9 @@ Mail will be sent in the event Team Creation, Project Archival and Meeting sched
 ### 13. Dashboard:
 Dashboard displaying tasks and meeting nearing the deadline.
 
+### 14. Spotify API:
+Users can listen to music from time to time for relaxation.
+
 ## Requirements
 To run this application, you will need:
 
