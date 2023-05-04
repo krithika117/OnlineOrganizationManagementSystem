@@ -23,14 +23,16 @@
                     }
                     else
                     {
+                        <div class="row">
                         @foreach (var task in Model.Tasks)
                         {
-                            <div>
-                                <h5>@task.Name is @task.Status</h5>
-                                <h3>@task.DueDate.ToShortDateString()</h3>
+                            <div class="row">
+                                <h6>@task.Name is @task.Status</h6>
+                                <h4>@task.DueDate.ToShortDateString()</h4>
                                 @*<p>@task.TeamId</p>*@
                             </div>
                         }
+                        </div>
                         <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary shadow ml-auto mt-4">View Tasks</a>
                     }
 
@@ -50,17 +52,19 @@
                     }
                     else
                     {
+                            <div class="row">
                         @foreach (var meeting in Model.Meetings)
                         {
-                            <div class="mb-4">
-                                <h5>
+                            <div class="row mb-4">
+                                <h6>
                                     @meeting.Title on
                                     @meeting.Details
-                                </h5>
+                                </h6>
                                 @*<p>@meeting.TeamId</p>*@
-                                <h3>@meeting.Date.ToString()</h3>
+                                <h4>@meeting.Date.ToString()</h4>
                             </div>
                         }
+                        </div>
                         <a asp-controller="CalendarEvents" asp-action="Index" class="btn btn-primary shadow ml-auto mt-4">View Schedule</a>
                     }
 

@@ -46,14 +46,14 @@
                     events: [
                 @foreach (var item in Model)
                 {
-                    var editUrl = Url.Action("Edit", "CalendarEvents", new { id = item.Id });
-                    var deleteUrl = Url.Action("Delete", "CalendarEvents", new { id = item.Id });
+                    //var editUrl = Url.Action("Edit", "CalendarEvents", new { id = item.Id });
+                    //var deleteUrl = Url.Action("Delete", "CalendarEvents", new { id = item.Id });
                     @Html.Raw("{")
                     @Html.Raw($"title: '{item.Title}',")
                     @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")
-                    @Html.Raw($"url: '{editUrl}',")
-                    @Html.Raw($"editUrl: '{editUrl}',")
-                    @Html.Raw($"deleteUrl: '{deleteUrl}',")
+                    //@Html.Raw($"url: '{editUrl}',")
+                    //@Html.Raw($"editUrl: '{editUrl}',")
+                    //@Html.Raw($"deleteUrl: '{deleteUrl}',")
                     @Html.Raw("},")
                 }],
                     
