@@ -31,15 +31,21 @@ namespace OnlineOrganizationManagementSystem.Controllers
         {
             try
             {
-                var tasks = _context.Tasks.Where(t => t.DueDate <= DateTime.Now && t.Status != "Overdue").ToList();
-  
+                var tasks = _context.Tasks.Where(t => (t.Status == "Assigned")).ToList();
+                var tasks1 = _context.Tasks.ToList();
+          
                 foreach (var task in tasks)
                 {
-                    task.Status = "Overdue";
-                    _context.Tasks.Update(task);
+                    if (task.DueDate < DateTime.Now)
+                    {
+                        task.Status = "Overdue";
+                        _context.Tasks.Update(task);
+                    }
+                    _context.SaveChanges();
                 }
-               
-                _context.SaveChanges();
+           
+           
+                
                 return Ok();
             }
             catch(Exception e){ return BadRequest(); }
@@ -50,6 +56,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         
         public async Task<IActionResult> Index()
         {
+            
             UpdateTaskStatus();
             var currentUser = await _userManager.GetUserAsync(User);
     

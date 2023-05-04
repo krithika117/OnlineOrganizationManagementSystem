@@ -23,7 +23,15 @@
             </div>
             <div class="form-group my-2">
                 <label asp-for="Subject" class="control-label"></label>
-                <input asp-for="Subject" class="form-control" />
+                @*<input asp-for="Subject" class="form-control" />*@
+                <select asp-for="Subject" class="form-control">
+                @if (!User.IsInRole("Admin"))
+                {
+                    <option value="Request Review">Request Review</option>
+                }
+                <option value="Technical Support">Technical Support</option>
+                <option value="General">General</option>
+                </select>
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="form-group my-2">
