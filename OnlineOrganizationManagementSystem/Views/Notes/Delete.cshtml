@@ -4,12 +4,10 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Notes</h4>
-    <hr />
+<div class="mx-5 d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="bg-primary-glass p-3">
+        <h2 class="fw-bolder mt-2">@ViewData["Title"]</h2>
+        <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
@@ -42,4 +40,5 @@
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>
+</div>
 </div>

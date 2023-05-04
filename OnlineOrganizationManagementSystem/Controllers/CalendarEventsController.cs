@@ -31,10 +31,11 @@ namespace OnlineOrganizationManagementSystem.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            var currentTeam = await _context.Teams
-            .FirstOrDefaultAsync(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id);
-            //var currentTeam = await _context.Teams.FirstOrDefaultAsync(t => t.UIUXDeveloper == currentUser || t.FrontendDeveloper == currentUser || t.BackendDeveloper == currentUser || t.Tester == currentUser || t.TeamLead == currentUser || t.ReportsTo == currentUser); 
-            if (currentTeam == null)
+            var currentTeams = await _context.Teams
+                .Where(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id)
+                .ToListAsync();
+
+            if (currentTeams == null)
             {
                 var events = await _context.CalendarEvent.ToListAsync();
                 var calendarItems = events.Select(e => new CalendarEvent
@@ -47,19 +48,22 @@ namespace OnlineOrganizationManagementSystem.Controllers
             }
             else
             {
-                var meetings = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
-                var allEvents = await _context.CalendarEvent.ToListAsync();
-
-                var calendarItems = meetings.Select(m => new CalendarEvent
+                var calendarItems = new List<CalendarEvent>();
+                foreach (var currentTeam in currentTeams)
                 {
-                    Title = m.Title,
-                    Date = m.Date,
-                }).Union(allEvents.Select(e => new CalendarEvent
-                {
-                    Title = e.Title,
-                    Date = e.Date,
-                })).OrderBy(c => c.Date);
+                    var meetings = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
+                    var allEvents = await _context.CalendarEvent.ToListAsync();
 
+                    calendarItems.AddRange(meetings.Select(m => new CalendarEvent
+                    {
+                        Title = m.Title,
+                        Date = m.Date,
+                    }).Union(allEvents.Select(e => new CalendarEvent
+                    {
+                        Title = e.Title,
+                        Date = e.Date,
+                    })).OrderBy(c => c.Date));
+                }
                 return View(calendarItems);
             }
         }

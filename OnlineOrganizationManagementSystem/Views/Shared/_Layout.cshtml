@@ -75,6 +75,14 @@
                             <span><a asp-area="" asp-controller="Notes" asp-action="Index">Notes</a></span>
                         </li>
                         <li class="nav-item">
+                            <i class="bx bxs-hourglass"></i>
+                            <span>
+                                <a asp-area="" asp-controller="AttendanceRecords"
+                           asp-action="Index">Workbook</a>
+                            </span>
+                        </li>
+                       
+                        <li class="nav-item">
                             <i class="bx bxs-group"></i>
                             <span><a asp-area="" asp-controller="Teams" asp-action="Index">Teams</a></span>
                         </li>
@@ -127,13 +135,7 @@
                         }*@
                        
                     }
-                    <li class="nav-item">
-                        <i class="bx bxs-hourglass"></i>
-                        <span>
-                            <a asp-area="" asp-controller="AttendanceRecords"
-                           asp-action="Index">Log</a>
-                        </span>
-                    </li>
+                 
                 }
                 <partial name="_LoginPartial" />
             </ul>

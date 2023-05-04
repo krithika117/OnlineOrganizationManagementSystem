@@ -31,74 +31,7 @@
 
 
 @section scripts {
-    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-    {
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var calendarEl = document.getElementById('calendar');
 
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-
-                    selectable: true,
-                    editable: false,
-                    events: [
-            @foreach (var item in Model)
-            {
-                var editUrl = Url.Action("Edit", "CalendarEvents", new { id = item.Id });
-                var deleteUrl = Url.Action("Delete", "CalendarEvents", new { id = item.Id });
-                @Html.Raw("{")
-                @Html.Raw($"title: '{item.Title}',")
-                @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")
-                @Html.Raw($"url: '{editUrl}',")
-                @Html.Raw($"editUrl: '{editUrl}',")
-                @Html.Raw($"deleteUrl: '{deleteUrl}',")
-                @Html.Raw("},")
-                }],
-                    eventClick: function (info) {
-
-                        // prevent navigating to the event URL
-                        info.jsEvent.preventDefault();
-
-
-                        // create the modal
-                        var modal = document.createElement('div');
-                        modal.classList.add('modal');
-
-                        // add the modal content
-                        modal.innerHTML = '<div class="modal-content glass">' +
-                            '<h3>Actions for ' + info.event.title + '</h3>' +
-                            '<div class="d-flex justify-content-center m-2">' +
-                            '<a href="' + info.event.extendedProps.editUrl + '" class="btn btn-primary mx-2">Edit</a>' +
-                            '<a href="' + info.event.extendedProps.deleteUrl + '" class="btn btn-danger mx-2">Delete</a>' +
-                            '</div>' +
-                            '</div>';
-
-                        // add the modal to the page
-                        document.body.appendChild(modal);
-
-                        // close the modal when clicking outside of it
-                        window.addEventListener('click', function (event) {
-                            if (event.target == modal) {
-                                modal.remove();
-                            }
-                        });
-
-                    }
-
-                });
-
-                calendar.render();
-            });
-        </script>
-    }
-    else
-    {
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var calendarEl = document.getElementById('calendar');
@@ -123,44 +56,13 @@
                 @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")
   
                 @Html.Raw("},")
-            }
-                                        ],
-            
-                 
+            }],  
 
                 });
 
                 calendar.render();
             });
         </script>
-    }
-
-
-    <style>
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            width: 30%;
-            text-align: center;
-        }
-
-      
-
-     
-    </style>
+    
 }
 

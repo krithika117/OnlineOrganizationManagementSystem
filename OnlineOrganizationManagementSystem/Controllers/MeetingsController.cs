@@ -27,16 +27,20 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings
-        [Authorize(Roles ="User, Manager")]
+        [Authorize(Roles = "User, Manager")]
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(User);
 
-            var currentTeam = await _context.Teams
-            .FirstOrDefaultAsync(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id);
-
-            
-            var events = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
+            var currentTeams = await _context.Teams
+                 .Where(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id)
+                 .ToListAsync();
+            Console.WriteLine("Called Team Index");
+            var events = new List<Meeting>();
+            foreach (var currentTeam in currentTeams)
+            {
+                events.AddRange(await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync());
+            }
             return View(events);
           
         }
