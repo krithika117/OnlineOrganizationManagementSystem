@@ -1,6 +1,6 @@
 # Teamsync - Online Organization Management
 
-TeamSync is a web application built with ASP.NET Core MVC that allows users to manage tasks, teams, meetings, customer support, public holidays, user accounts, project archives, and private notes.
+Teamsync is a web application built with ASP.NET Core MVC that allows users to manage tasks, teams, meetings, customer support, public holidays, user accounts, project archives, and private notes.
 
 <img src="https://user-images.githubusercontent.com/76687631/235875245-3342f80c-cfeb-449b-97f1-e6c3a9b93498.svg" alt="Team Sync" style="width:100%;"/>
 
@@ -31,7 +31,7 @@ Users can manage public holidays for the organization.
 Abstracted view of public holidays and calendars based on the team.
 
 ### 9. User Account Management
-Administrators can create and manage user accounts.
+Administrators can create user accounts.
 
 ### 10. Project Archives
 Managers can add completed projects to archives.
@@ -58,4 +58,4 @@ Users can listen to music from time to time for relaxation.
 - Amazon Relational Database System (RDS)
 
 ## Conclusion
-TeamSync provides a comprehensive set of tools for managing an organization's daily activities. From task and team management to customer support and project archival, it provides everything needed to manage a modern organization. With user authentication and authorization, and user account management, it provides a secure and efficient way to manage the organization's resources. Its integration with Amazon RDS provides scalable, reliable, and cost-effective database storage for the organization's data. 
+Teamsync provides a comprehensive set of tools for managing an organization's daily activities. From task and team management to customer support and project archival, it provides everything needed to manage a modern organization. With user authentication and authorization, and user account management, it provides a secure and efficient way to manage the organization's resources. Its integration with Amazon RDS provides scalable, reliable storage for the organization's data. 
