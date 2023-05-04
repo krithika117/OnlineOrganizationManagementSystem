@@ -23,9 +23,6 @@ namespace OnlineOrganizationManagementSystem.Controllers
             _userManager = userManager;
         }
 
-
-      
-
         // GET: Expenses
         public async Task<IActionResult> Index()
         {

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.AttendanceRecord>
+
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> userManager;
+@{
+    ViewData["Title"] = "Attendance Records";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+
+<label class="control-label"></label>
+<select id="SelectedTeam" class="form-control" asp-items="ViewBag.AttendanceTeamId">
+    <option value="" disabled selected>Select a team</option>
+</select>
+
+    <div id="teamattendance" class="container justify-content-center mt-3">
+        <partial name="TeamAttendancePartial" />
+    </div>
+@section Scripts{
+    <script>
+        $('#SelectedTeam').change(function () {
+            $.ajax({
+                url: '/AttendanceRecords/TeamAttendancePartial',
+                data: { InTeamId: $('#SelectedTeam').val() },
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    console.log(result);
+                    $('#teamattendance').html(result);
+                }
+            });
+        });
+        </script>
+       }

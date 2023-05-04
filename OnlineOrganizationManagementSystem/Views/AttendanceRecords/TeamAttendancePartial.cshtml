@@ -1,0 +1,29 @@
+﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.AttendanceRecord>
+
+@if(Model.Any()){
+
+    <table class="table glass">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Presence Status</th>
+                <th>Description</th>
+                <th>Date Recorded</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.UserId</td>
+                    <td>@record.PresenceStatus</td>
+                    <td>@record.Description</td>
+                    <td>@record.DateRecord.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+    else{
+        <p>None</p>
+    }
