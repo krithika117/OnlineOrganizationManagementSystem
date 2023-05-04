@@ -8,7 +8,8 @@
     <h2 class="fw-bolder my-4">
         My Attendance
     </h2>
-    @if(!ViewBag.AttendanceRecordExists){
+    @if (ViewData.TryGetValue("AttendanceRecordExists", out var attendanceRecordExists) && !(bool)attendanceRecordExists)
+    {
 
     <a asp-action="Create" class="btn btn-primary mt-4">+ Create New</a>
     }

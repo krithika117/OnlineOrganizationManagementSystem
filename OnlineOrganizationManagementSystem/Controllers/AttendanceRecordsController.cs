@@ -37,7 +37,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 .AnyAsync(n => n.UserId == user.Id && n.DateRecord.Date == today);
             Console.WriteLine(DateTime.Today);
             Console.WriteLine(attendanceRecordExists);
-            ViewBag.AttendanceRecordExists = attendanceRecordExists;
+            ViewData["AttendanceRecordExists"] = attendanceRecordExists;
 
             return View(attendanceRecords);
         }
@@ -61,9 +61,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> TeamAttendancePartial(int InTeamId)
         {
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine(InTeamId);
-            Console.WriteLine("----------------------------------------");
+           
             var team = await _context.Teams.FirstOrDefaultAsync(n => n.Id == InTeamId);
 
             var teamMembers = new[] { team.UIUXDeveloperId,
