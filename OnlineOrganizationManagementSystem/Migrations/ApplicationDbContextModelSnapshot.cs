@@ -279,6 +279,34 @@ namespace OnlineOrganizationManagementSystem.Migrations
                     b.ToTable("Archives");
                 });
 
+            modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.AttendanceRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateRecord")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PresenceStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AttendanceRecord");
+                });
+
             modelBuilder.Entity("OnlineOrganizationManagementSystem.Models.CalendarEvent", b =>
                 {
                     b.Property<int>("Id")

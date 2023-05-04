@@ -108,25 +108,33 @@
                            asp-action="Archival">Archives</a>
                             </span>
                         </li>
-                        @if (_context.Teams.Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) ||
-                       t.FrontendDeveloperId ==
-                       UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) ||
-                       t.TesterId ==
-                       UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) ||
-                       t.ReportsToId ==
-                       UserManager.GetUserId(User)))
-                        {
-                           @* <li class="nav-item">
-                <i class="bx bx-video"></i>
-                                <span>
-                                    <a asp-area="" asp-controller="Meetings"
-                           asp-action="Index">Meetings</a>
-                                </span>
-                            </li>*@
+                        @*  @if (_context.Teams.Any(t => t.UIUXDeveloperId == UserManager.GetUserId(User) ||
+                               t.FrontendDeveloperId ==
+                               UserManager.GetUserId(User) || t.BackendDeveloperId == UserManager.GetUserId(User) ||
+                               t.TesterId ==
+                               UserManager.GetUserId(User) || t.TeamLeadId == UserManager.GetUserId(User) ||
+                               t.ReportsToId ==
+                               UserManager.GetUserId(User)))
+                                {
+                                   <li class="nav-item">
+                        <i class="bx bx-video"></i>
+                                        <span>
+                                            <a asp-area="" asp-controller="Meetings"
+                                   asp-action="Index">Meetings</a>
+                                        </span>
+                                    </li>
 
-                        }
+                        }*@
+                       
                     }
-                   }
+                    <li class="nav-item">
+                        <i class="bx bxs-hourglass"></i>
+                        <span>
+                            <a asp-area="" asp-controller="AttendanceRecords"
+                           asp-action="Index">Log</a>
+                        </span>
+                    </li>
+                }
                 <partial name="_LoginPartial" />
             </ul>
         </nav>
