@@ -61,14 +61,20 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> TeamAttendancePartial(int InTeamId)
         {
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine(InTeamId);
+            Console.WriteLine("----------------------------------------");
             var team = await _context.Teams.FirstOrDefaultAsync(n => n.Id == InTeamId);
 
             var teamMembers = new[] { team.UIUXDeveloperId,
             team.FrontendDeveloperId, team.BackendDeveloperId, team.TesterId, team.TeamLeadId, team.TeamLeadId};
 
+            Console.WriteLine(teamMembers);
+
             var attendanceRecords = await _context.AttendanceRecord
             .Where(r => teamMembers.Contains(r.UserId))
             .ToListAsync();
+            Console.WriteLine(attendanceRecords[0].PresenceStatus);
             return PartialView("TeamAttendancePartial", attendanceRecords);
 
         }

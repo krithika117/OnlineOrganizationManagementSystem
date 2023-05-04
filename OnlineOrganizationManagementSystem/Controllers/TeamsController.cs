@@ -29,12 +29,18 @@ namespace OnlineOrganizationManagementSystem.Controllers
             _userManager = userManager;
             _emailSender = emailSender;
         }
+        
 
         // GET: Teams
         [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Index()
         {
-
+            ViewData["BackendDeveloperId"] = "";
+            ViewData["FrontendDeveloperId"] = "";
+            ViewData["ReportsToId"] = "";
+            ViewData["TeamLeadId"] = "";
+            ViewData["TesterId"] = "";
+            ViewData["UIUXDeveloperId"] = "";
             var currentUser = await _userManager.GetUserAsync(User);
             var currentTeam = await _context.Teams
             .Where(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id).ToListAsync();
@@ -69,6 +75,13 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> CreateAsync()
         {
+            ViewData["BackendDeveloperId"] = "";
+            ViewData["FrontendDeveloperId"] = "";
+            ViewData["ReportsToId"] = "";
+            ViewData["TeamLeadId"] = "";
+            ViewData["TesterId"] = "";
+            ViewData["UIUXDeveloperId"] = "";
+
             ViewData["BackendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
             ViewData["FrontendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
             ViewData["ReportsToId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Manager"), "Id", "Email");
@@ -127,6 +140,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["BackendDeveloperId"] = "";
+            ViewData["FrontendDeveloperId"] = "";
+            ViewData["ReportsToId"] = "";
+            ViewData["TeamLeadId"] = "";
+            ViewData["TesterId"] = "";
+            ViewData["UIUXDeveloperId"] = "";
             if (id == null || _context.Teams == null)
             {
                 return NotFound();

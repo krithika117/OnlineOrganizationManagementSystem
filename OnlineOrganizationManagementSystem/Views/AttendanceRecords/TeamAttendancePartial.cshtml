@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.AttendanceRecord>
 
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
 @if(Model.Any()){
 
     <table class="table glass">
@@ -15,7 +17,7 @@
             @foreach (var record in Model)
             {
                 <tr>
-                    <td>@record.UserId</td>
+                    <td>@(await UserManager.FindByIdAsync(record.UserId))</td>
                     <td>@record.PresenceStatus</td>
                     <td>@record.Description</td>
                     <td>@record.DateRecord.ToShortDateString()</td>
