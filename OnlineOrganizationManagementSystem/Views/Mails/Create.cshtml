@@ -1,7 +1,10 @@
-﻿@model OnlineOrganizationManagementSystem.Models.Messages
+﻿@using Microsoft.AspNetCore.Identity;
+@model OnlineOrganizationManagementSystem.Models.Messages
+@inject UserManager<IdentityUser> userManager
 
 @{
     ViewData["Title"] = "Create";
+    var users = userManager.Users;
 }
 
 
@@ -18,20 +21,14 @@
             </div>
             <div class="form-group my-2">
                 <label asp-for="ReceiverMail" class="control-label"></label>
-                <input asp-for="ReceiverMail" class="form-control" />
+                <select asp-for="ReceiverMail" class="form-control" asp-items="@(new SelectList(users, "UserName", "UserName" ))">
+                    
+                </select>
                 <span asp-validation-for="ReceiverMail" class="text-danger"></span>
             </div>
             <div class="form-group my-2">
                 <label asp-for="Subject" class="control-label"></label>
-                @*<input asp-for="Subject" class="form-control" />*@
-                <select asp-for="Subject" class="form-control">
-                @if (!User.IsInRole("Admin"))
-                {
-                    <option value="Request Review">Request Review</option>
-                }
-                <option value="Technical Support">Technical Support</option>
-                <option value="General">General</option>
-                </select>
+                <input asp-for="Subject" class="form-control" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="form-group my-2">

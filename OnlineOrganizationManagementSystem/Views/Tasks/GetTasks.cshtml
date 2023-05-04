@@ -30,7 +30,7 @@ else{
                             }
                             else
                             {
-                                <a asp-action="Create" asp-controller="Mails"
+                                <a asp-action="CreateAsync" asp-controller="Mails"
                            asp-route-sender="@User.Identity.Name"
                            asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
                            asp-route-subject="Request Review"
@@ -70,7 +70,7 @@ else{
                        asp-route-sender="@User.Identity.Name"
                        asp-route-receiver="@(await UserManager.FindByIdAsync(task.ManagerId))"
                        asp-route-subject="Request Review"
-                       asp-route-body="Review for Task @task.Id"
+                       asp-route-body="Review for Task @task.Name due on @task.DueDate"
                        asp-route-taskId="@task.Id"
                                class="btn btn-danger">Request Review</a>
 

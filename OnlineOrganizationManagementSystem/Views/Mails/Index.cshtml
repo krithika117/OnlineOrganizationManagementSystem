@@ -86,10 +86,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SenderMail)
+                @Html.DisplayFor(modelItem => item.SenderMail.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReceiverMail)
+                        @Html.DisplayFor(modelItem => item.ReceiverMail.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Subject)
