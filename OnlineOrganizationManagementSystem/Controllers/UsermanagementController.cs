@@ -34,7 +34,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
             return View();
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(UserCreateViewModel model)
         {

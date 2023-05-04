@@ -24,7 +24,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [Authorize(Roles ="Manager, User")]
+        [Authorize]        
         // GET: Notes
         public async Task<IActionResult> Index()
         {
@@ -36,7 +36,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View(notes);
         }
 
-        [Authorize(Roles = "Manager, User")]
+        [Authorize]        
         // GET: Notes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -56,7 +56,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
 
-        [Authorize(Roles = "Manager, User")]
+        [Authorize]
         // GET: Notes/Create
         public IActionResult Create()
         {
@@ -66,7 +66,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Notes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Manager, User")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Content,Priority,UserId")] Notes notes)
@@ -80,7 +80,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             
         }
         // GET: Notes/Edit/5
-        [Authorize(Roles = "Manager, User")]
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Notes == null)
@@ -99,7 +99,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Notes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Manager, User")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,Priority,UserId")] Notes notes)
@@ -131,7 +131,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             }
             return View(notes);
         }
-        [Authorize(Roles = "Manager, User")]
+        [Authorize]
         // GET: Notes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -149,7 +149,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
             return View(notes);
         }
-        [Authorize(Roles = "Manager, User")]
+        [Authorize]
         // POST: Notes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

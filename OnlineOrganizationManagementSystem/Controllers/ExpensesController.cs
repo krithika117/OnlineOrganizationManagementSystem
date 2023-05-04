@@ -54,7 +54,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Expenses/Details/5
-        [Authorize]
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Expense == null)

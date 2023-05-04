@@ -42,17 +42,14 @@ namespace OnlineOrganizationManagementSystem.Controllers
                         _context.Tasks.Update(task);
                     }
                     _context.SaveChanges();
-                }
-           
-           
-                
+                }              
                 return Ok();
             }
             catch(Exception e){ return BadRequest(); }
             
         }
 
-        [Authorize]
+        [Authorize(Roles = "Manager, User")]
         
         public async Task<IActionResult> Index()
         {
@@ -71,8 +68,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View(currUserTasks);
         }
 
-        [Authorize]
-        
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> GetTasks(int TeamId) {
             var currentUser = await _userManager.GetUserAsync(User);
 
@@ -85,6 +81,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Tasks/Details/5
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Tasks == null)
@@ -106,6 +103,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Tasks/Create
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Create()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -115,7 +113,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View();
         }
 
-
+        [Authorize(Roles = "Manager, User")]
         public IActionResult GetAssigneesForTeam(int teamId)
         {
             Console.WriteLine("GetAssigneesForTeam Team ID " + teamId);
@@ -158,6 +156,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Tasks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,AssigneeId,ManagerId,Status,CreatedAt,DueDate,TeamId")] Tasks tasks)
@@ -171,6 +170,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Tasks/Edit/5
+        [Authorize(Roles = "Manager")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -194,6 +195,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Tasks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,AssigneeId,ManagerId,Status,CreatedAt,DueDate,TeamId")] Tasks tasks)
@@ -230,6 +232,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Tasks/Delete/5
+        [Authorize(Roles = "Manager")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Tasks == null)
@@ -251,6 +255,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // POST: Tasks/Delete/5
+        [Authorize(Roles = "Manager")]
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

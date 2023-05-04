@@ -27,7 +27,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings
-        [Authorize(Roles ="Manager")]
+        [Authorize(Roles ="User, Manager")]
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -42,6 +42,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings/Details/5
+        [Authorize(Roles = "User, Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Meetings == null)
@@ -72,6 +73,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Meetings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EventType,Title,Details,TeamId,Date")] Meeting meeting)
@@ -129,6 +131,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings/Edit/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Meetings == null)
@@ -148,6 +151,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Meetings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,EventType,Title,Details,TeamId,Date")] Meeting meeting)
@@ -180,6 +184,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Meetings/Delete/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Meetings == null)
@@ -199,6 +204,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // POST: Meetings/Delete/5
+        [Authorize(Roles = "Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -217,8 +223,6 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-      
         private bool MeetingExists(int id)
         {
             return (_context.Meetings?.Any(e => e.Id == id)).GetValueOrDefault();

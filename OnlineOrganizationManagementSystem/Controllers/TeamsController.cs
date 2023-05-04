@@ -31,7 +31,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Teams
-        [Authorize]
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Index()
         {
 
@@ -47,7 +47,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Teams/Details/5
-        [Authorize]
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Teams == null)
@@ -66,7 +66,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Teams/Create
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> CreateAsync()
         {
             ViewData["BackendDeveloperId"] = new SelectList(await _userManager.GetUsersInRoleAsync("User"), "Id", "Email");
@@ -321,9 +321,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View(archives);
         }
 
-       // Send Mail Function
-      
-
+        // Send Mail Function
     public async Task SendEmailAsync(string recipientEmail, string subject, string messageBody)
         {
             var message = new MimeMessage();
@@ -344,6 +342,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
                     await client.DisconnectAsync(true);
             }
         }
+
     private bool TeamsExists(int id)
         {
           return (_context.Teams?.Any(e => e.Id == id)).GetValueOrDefault();

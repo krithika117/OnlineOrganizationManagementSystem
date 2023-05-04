@@ -57,7 +57,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         {
             return View();
         }
-        
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Create(string sender, string receiver, string subject, string body, int taskId)
         {
@@ -96,9 +96,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             }
             return View(mail);
         } 
-        
-    
-
+ 
         [Authorize(Roles ="Admin, Manager, User")]
         // GET: Mails/Edit/5
         public async Task<IActionResult> Edit(int? id)

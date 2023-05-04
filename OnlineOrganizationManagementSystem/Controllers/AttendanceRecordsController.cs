@@ -59,7 +59,6 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         [Authorize(Roles = "Manager")]
-
         public async Task<IActionResult> TeamAttendancePartial(int InTeamId)
         {
             var team = await _context.Teams.FirstOrDefaultAsync(n => n.Id == InTeamId);
