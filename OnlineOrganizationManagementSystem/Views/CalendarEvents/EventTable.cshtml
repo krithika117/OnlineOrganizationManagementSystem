@@ -1,12 +1,6 @@
 ﻿@model IEnumerable<OnlineOrganizationManagementSystem.Models.CalendarEvent>
 
-@if (!Model.Any())
-{
-    <div class=" bg-primary-glass p-4">
-        <h4 class="text-center ">No Events yet!</h4>
-    </div>
 
-}
 <div class="d-flex justify-content-between align-items-center">
     <h2 class="fw-bolder my-4">
         Events
@@ -14,6 +8,14 @@
     <a asp-action="Create" class="btn btn-primary mt-4">+ Create New</a>
 
 </div>
+
+@if (!Model.Any())
+{
+    <div class=" bg-primary-glass p-4">
+        <h4 class="text-center ">No Events yet!</h4>
+    </div>
+
+}
 <div class="row my-6">
     @foreach (var item in Model)
     {
