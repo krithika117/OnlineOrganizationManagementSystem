@@ -35,26 +35,16 @@ namespace OnlineOrganizationManagementSystem.Controllers
                 .Where(t => t.UIUXDeveloperId == currentUser.Id || t.FrontendDeveloperId == currentUser.Id || t.BackendDeveloperId == currentUser.Id || t.TesterId == currentUser.Id || t.TeamLeadId == currentUser.Id || t.ReportsToId == currentUser.Id)
                 .ToListAsync();
 
-            if (currentTeams == null)
-            {
-                var events = await _context.CalendarEvent.ToListAsync();
-                var calendarItems = events.Select(e => new CalendarEvent
-                {
-                    Title = e.Title,
-                    Date = e.Date,
-                }).OrderBy(c => c.Date);
+            List<CalendarEvent> calendarEvents = new List<CalendarEvent>();
 
-                return View(calendarItems);
-            }
-            else
+            if (currentTeams != null)
             {
-                var calendarItems = new List<CalendarEvent>();
                 foreach (var currentTeam in currentTeams)
                 {
                     var meetings = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
                     var allEvents = await _context.CalendarEvent.ToListAsync();
 
-                    calendarItems.AddRange(meetings.Select(m => new CalendarEvent
+                    calendarEvents.AddRange(meetings.Select(m => new CalendarEvent
                     {
                         Title = m.Title,
                         Date = m.Date,
@@ -62,10 +52,26 @@ namespace OnlineOrganizationManagementSystem.Controllers
                     {
                         Title = e.Title,
                         Date = e.Date,
-                    })).OrderBy(c => c.Date));
+                    })));
                 }
-                return View(calendarItems);
             }
+            else
+            {
+                var events = await _context.CalendarEvent.ToListAsync();
+                calendarEvents.AddRange(events.Select(e => new CalendarEvent
+                {
+                    Title = e.Title,
+                    Date = e.Date,
+                }));
+            }
+
+            var distinctEvents = calendarEvents
+                .GroupBy(e => e.Title)
+                .Select(g => g.First())
+                .OrderBy(e => e.Date)
+                .ToList();
+
+            return View(distinctEvents);
         }
 
         // GET: CalendarEvents/Details/5
@@ -102,13 +108,11 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Date")] CalendarEvent CalendarEvent)
         {
-            if (ModelState.IsValid)
-            {
+            
                 _context.Add(CalendarEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(CalendarEvent);
+         
         }
 
         // GET: CalendarEvents/Edit/5

@@ -70,7 +70,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         public async Task<IActionResult> CreateAsync()
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            ViewData["TeamId"] = new SelectList(_context.Teams.Where(n => n.ReportsToId == currentUser.Id), "Id", "Name");
+            ViewBag.MeetTeamId = new SelectList(_context.Teams.Where(n => n.ReportsToId == currentUser.Id), "Id", "Name");
             return View();
         }
 

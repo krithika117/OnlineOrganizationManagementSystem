@@ -29,13 +29,11 @@
         <div id='calendar'></div>
     </div>
 
-
 @section scripts {
-
+    
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var calendarEl = document.getElementById('calendar');
-
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'dayGridMonth',
                     headerToolbar: {
@@ -43,26 +41,24 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
-
                     selectable: true,
                     editable: false,
                     events: [
-            @foreach (var item in Model)
-            {
-                var editUrl = Url.Action("Edit", "CalendarEvents", new { id = item.Id });
-                var deleteUrl = Url.Action("Delete", "CalendarEvents", new { id = item.Id });
-                @Html.Raw("{")
-                @Html.Raw($"title: '{item.Title}',")
-                @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")
-  
-                @Html.Raw("},")
-            }],  
-
+                @foreach (var item in Model)
+                {
+                    var editUrl = Url.Action("Edit", "CalendarEvents", new { id = item.Id });
+                    var deleteUrl = Url.Action("Delete", "CalendarEvents", new { id = item.Id });
+                    @Html.Raw("{")
+                    @Html.Raw($"title: '{item.Title}',")
+                    @Html.Raw($"start: '{item.Date.ToString("yyyy-MM-dd")}',")
+                    @Html.Raw($"url: '{editUrl}',")
+                    @Html.Raw($"editUrl: '{editUrl}',")
+                    @Html.Raw($"deleteUrl: '{deleteUrl}',")
+                    @Html.Raw("},")
+                }],
+                    
                 });
-
                 calendar.render();
             });
         </script>
-    
 }
-
