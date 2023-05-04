@@ -42,10 +42,13 @@ Users can take private notes based on priority.
 ### 12. Mail Enabling
 Mail will be sent in the event of team creation, project archival, and meeting scheduling.
 
-### 13. Dashboard
+### 13. Attendance
+Attendance Log for users to mark their presence status and input the work done.
+
+### 14. Dashboard
 Displays tasks and meetings nearing the deadline.
 
-### 14. Spotify API
+### 15. Spotify API
 Users can listen to music from time to time for relaxation.
 
 ## Technology Used
