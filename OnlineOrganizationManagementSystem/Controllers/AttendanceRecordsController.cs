@@ -42,7 +42,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View(attendanceRecords);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetTeamAttendance()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -57,7 +57,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
             return View(attendanceRecords);
         }
-        [Authorize]
+
+        [Authorize(Roles = "Manager")]
 
         public async Task<IActionResult> TeamAttendancePartial(int InTeamId)
         {
@@ -117,27 +118,27 @@ namespace OnlineOrganizationManagementSystem.Controllers
             }
 
             // GET: AttendanceRecords/Edit/5
-            public async Task<IActionResult> Edit(int? id)
-            {
-                if (id == null || _context.AttendanceRecord == null)
-                {
-                    return NotFound();
-                }
+            //public async Task<IActionResult> Edit(int? id)
+            //{
+            //    if (id == null || _context.AttendanceRecord == null)
+            //    {
+            //        return NotFound();
+            //    }
 
-                var attendanceRecord = await _context.AttendanceRecord.FindAsync(id);
-                if (attendanceRecord == null)
-                {
-                    return NotFound();
-                }
-                return View(attendanceRecord);
-            }
+            //    var attendanceRecord = await _context.AttendanceRecord.FindAsync(id);
+            //    if (attendanceRecord == null)
+            //    {
+            //        return NotFound();
+            //    }
+            //    return View(attendanceRecord);
+            //}
 
             // POST: AttendanceRecords/Edit/5
             // To protect from overposting attacks, enable the specific properties you want to bind to.
             // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-            [HttpPost]
-            [ValidateAntiForgeryToken]
+            //[HttpPost]
+            //[ValidateAntiForgeryToken]
             //public async Task<IActionResult> Edit(int id, [Bind("Id,PresenceStatus,Description,DateRecord,UserId")] AttendanceRecord attendanceRecord)
             //{
             //    if (id != attendanceRecord.Id)

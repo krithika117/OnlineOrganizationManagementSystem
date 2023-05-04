@@ -57,8 +57,8 @@ Users can listen to music from time to time for relaxation.
 - FullCalendar.io, Google Fonts
 - Spotify API
 - ASP.NET MVC
-- SQL Server
-- Amazon Relational Database System (RDS)
+- Microsoft Server SQL (2017)
+- Amazon Relational Database Service (RDS)
 
 ## Conclusion
 Teamsync provides a comprehensive set of tools for managing an organization's daily activities. From task and team management to customer support and project archival, it provides everything needed to manage a modern organization. With user authentication and authorization, and user account management, it provides a secure and efficient way to manage the organization's resources. Its integration with Amazon RDS provides scalable, reliable storage for the organization's data. 

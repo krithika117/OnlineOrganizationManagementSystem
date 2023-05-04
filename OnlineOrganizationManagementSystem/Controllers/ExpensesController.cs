@@ -24,6 +24,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Expenses
+        [Authorize(Roles = "Manager, User")]
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -39,7 +40,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return View(currUserExpenses);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Manager, User")]
 
         public async Task<IActionResult> ExpensePartial(int InTeamId)
         {
@@ -52,9 +53,8 @@ namespace OnlineOrganizationManagementSystem.Controllers
             return PartialView("ExpensePartial", currExpenses);
         }
 
-
-
         // GET: Expenses/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Expense == null)
@@ -74,6 +74,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Expenses/Create
+        [Authorize(Roles ="Manager")]
         public async Task<IActionResult> Create()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -84,6 +85,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Expenses/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Amount,CreatedAt,TeamId")] Expense expense)
@@ -94,6 +96,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Expenses/Edit/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Expense == null)
@@ -113,6 +116,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         // POST: Expenses/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Amount,CreatedAt,TeamId")] Expense expense)
@@ -143,6 +147,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         }
 
         // GET: Expenses/Delete/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Expense == null)
@@ -163,6 +168,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
         // POST: Expenses/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Manager")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

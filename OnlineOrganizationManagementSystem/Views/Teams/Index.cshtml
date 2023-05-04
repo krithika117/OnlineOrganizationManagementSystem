@@ -151,8 +151,8 @@
                     {
                         <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                        @* <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>*@
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        <a class="btn btn-warning" asp-action="Close" asp-route-id="@item.Id">Close Project</a>
+                        <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-danger" asp-controller="AttendanceRecords" asp-action="GetTeamAttendance" asp-route-id="@item.Id">Close Project</a>
                     }
                     <a class="btn btn-secondary" asp-controller="Tasks" asp-action="Index">View Tasks</a>
                     <a class="btn btn-secondary" asp-controller="Expenses" asp-action="Index">View Expenses</a>
