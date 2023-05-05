@@ -4,8 +4,20 @@ Teamsync is a web application built with ASP.NET Core MVC that allows users to m
 
 <img src="https://user-images.githubusercontent.com/76687631/235875245-3342f80c-cfeb-449b-97f1-e6c3a9b93498.svg" alt="Team Sync" style="width:100%;"/>
 
-## Modules
+## Module Outline
+### User Management
+User Creation, Role Allocation, Note taking etc.
 
+### Team Management
+Involves Team creation and management, Log maintenance, Attendance record checking, task reviews, project archival etc.
+
+### Calendar Management
+Meeting scheduling, Public holiday marking and an abstracted view based upon authenticated user.
+
+### Communication
+Updates for all types of users with status checking.
+
+## Detailed Description of features
 ### 1. User Authentication and Authorization
 The application uses ASP.NET Identity for user authentication and authorization.
 
