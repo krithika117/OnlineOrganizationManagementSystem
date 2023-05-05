@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OnlineOrganizationManagementSystem.Data;
 using OnlineOrganizationManagementSystem.Models;
 
@@ -37,8 +38,19 @@ namespace OnlineOrganizationManagementSystem.Controllers
 
             List<CalendarEvent> calendarEvents = new List<CalendarEvent>();
 
-            if (currentTeams != null)
+            if (currentTeams == null || currentTeams.Count() < 1)
             {
+                var events = await _context.CalendarEvent.ToListAsync();
+
+                calendarEvents.AddRange(events.Select(e => new CalendarEvent
+                {
+                    Title = e.Title,
+                    Date = e.Date,
+                }));
+            }
+            else
+            {
+
                 foreach (var currentTeam in currentTeams)
                 {
                     var meetings = await _context.Meetings.Where(m => m.TeamId == currentTeam.Id).ToListAsync();
@@ -54,15 +66,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
                         Date = e.Date,
                     })));
                 }
-            }
-            else
-            {
-                var events = await _context.CalendarEvent.ToListAsync();
-                calendarEvents.AddRange(events.Select(e => new CalendarEvent
-                {
-                    Title = e.Title,
-                    Date = e.Date,
-                }));
+                
             }
 
             var distinctEvents = calendarEvents
