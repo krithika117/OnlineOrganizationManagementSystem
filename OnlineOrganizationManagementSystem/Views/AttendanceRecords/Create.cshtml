@@ -24,12 +24,12 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group my-2">
+            <div class="form-group my-2 d-none">
                 <label asp-for="DateRecord" class="control-label"></label>
-                <input asp-for="DateRecord" class="form-control" />
+                <input asp-for="DateRecord" class="form-control" value="@DateTime.Now"/>
                 <span asp-validation-for="DateRecord" class="text-danger"></span>
             </div>
-            <div class="form-group my-2">
+            <div class="form-group my-2 d-none">
                 <input asp-for="UserId" class="form-control" value="@userManager.GetUserId(User)" readonly/>
             </div>
             <div class="form-group my-2">

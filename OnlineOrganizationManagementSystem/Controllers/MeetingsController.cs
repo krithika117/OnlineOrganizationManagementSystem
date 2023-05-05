@@ -69,6 +69,7 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> CreateAsync()
         {
+            ViewBag.MeetTeamId = "";
             var currentUser = await _userManager.GetUserAsync(User);
             ViewBag.MeetTeamId = new SelectList(_context.Teams.Where(n => n.ReportsToId == currentUser.Id), "Id", "Name");
             return View();

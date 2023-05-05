@@ -45,15 +45,16 @@ namespace OnlineOrganizationManagementSystem.Controllers
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetTeamAttendance()
         {
+            ViewBag.AttendanceTeamId = "";
             var currentUser = await _userManager.GetUserAsync(User);
             var attendanceRecords = await _context.AttendanceRecord
                 .Where(n => n.UserId == currentUser.Id)
                 .ToListAsync();
             ViewData["Title"] = "Attendance Records";
-            ViewBag.AttendanceTeamId = new SelectList(_context.Teams, "Id", "Name");
+            ViewBag.AttendanceTeamId = new SelectList(_context.Teams.Where(t => t.ReportsToId == currentUser.Id), "Id", "Name");
 
-            var currentTeam = await _context.Teams
-           .FirstOrDefaultAsync(t => t.ReportsToId == currentUser.Id);
+           // var currentTeam = await _context.Teams
+           //.FirstOrDefaultAsync(t => t.ReportsToId == currentUser.Id);
 
             return View(attendanceRecords);
         }
@@ -111,13 +112,12 @@ namespace OnlineOrganizationManagementSystem.Controllers
             [ValidateAntiForgeryToken]
             public async Task<IActionResult> Create([Bind("Id,PresenceStatus,Description,DateRecord,UserId")] AttendanceRecord attendanceRecord)
             {
-                if (ModelState.IsValid)
-                {
+                    attendanceRecord.DateRecord = DateTime.Now;
                     _context.Add(attendanceRecord);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
-                }
-                return View(attendanceRecord);
+                
+                
             }
 
             // GET: AttendanceRecords/Edit/5
